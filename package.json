@@ -1,0 +1,43 @@
+{
+  "name": "fourcorners-editor",
+  "version": "0.0.1",
+  "description": "YAML editor for fourcorners http://fourcorners.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/digitalinteraction/fourcorners.git"
+  },
+  "author": "Tim Osadchiy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/digitalinteraction/fourcorners/issues"
+  },
+  "homepage": "https://github.com/digitalinteraction/fourcorners#readme",
+  "devDependencies": {
+    "envify": "^3.4.1",
+    "grunt": "^1.0.1",
+    "grunt-angular-templates": "^1.1.0",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-sass": "^1.2.1"
+  },
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "angular-sanitize": "^1.5.8",
+    "angular-touch": "^1.5.8",
+    "angularjs-datepicker": "^2.1.6",
+    "blob": "0.0.4",
+    "bootstrap": "^3.3.7",
+    "browser-filesaver": "^1.1.1",
+    "js-yaml": "^3.6.1"
+  }
+}

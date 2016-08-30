@@ -1,0 +1,10 @@
+{
+	"version": 3,
+	"file": "style.css",
+	"sources": [
+		"../scss/main.scss",
+		"../scss/_forms.scss"
+	],
+	"mappings": "ACAA,AAAA,cAAc,CAAC;EAGb,MAAM,EAAE,iBAAkB;EAC1B,aAAa,EAFG,GAAG;EAGnB,UAAU,EAAE,OAAQ;EACpB,OAAO,EAAE,IAAI,CALE,IAAI;EAMnB,aAAa,EAAE,IAAK;EACpB,WAAW,EAPI,KAAI;EAQnB,YAAY,EARG,KAAI,GASpB;;AAED,AAAA,QAAQ,CAAC;EACP,SAAS,EAAE,IAAK,GACjB",
+	"names": []
+}

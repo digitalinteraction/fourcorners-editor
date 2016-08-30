@@ -1,0 +1,34 @@
+<legend>Links</legend>
+<div class="form-subgroup" ng-repeat="link in links">
+    <div class="form-group">
+        <div class="col-xs-12">
+            <button type="button" class="close" title="Remove"
+                    ng-click="removeLink(link)">&times;</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="link-title-{{$index}}">Title</label>
+        <div class="col-sm-9">
+            <input type="text"
+                   id="link-title-{{$index}}"
+                   class="form-control" placeholder="Title of a story"
+                   ng-model="link.title">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="link-url-{{$index}}">URL</label>
+        <div class="col-sm-9">
+            <input type="text"
+                   id="link-url-{{$index}}"
+                   class="form-control" placeholder="http://example.com/story.html"
+                   ng-model="link.url">
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-9 col-sm-offset-3">
+        <button type="button" class="btn btn-default" ng-click="addLink()">
+            Add link
+        </button>
+    </div>
+</div>

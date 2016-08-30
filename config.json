@@ -1,0 +1,23 @@
+{
+  "browserifyFrom": "js-src/index.js",
+  "browserifyTo": "temp/index.browserified.js",
+  "concatJsTo": "temp/index.js",
+  "buildJsTo": "index.min.js",
+  "uglifyJs": true,
+  "watch": true,
+  "sassFrom": "scss/main.scss",
+  "sassTo": "temp/style.css",
+  "sassWatch": "scss/**/**",
+  "includeCssMaps": true,
+  "includeJsMaps": true,
+  "insertCssWithJs": true,
+  "watchDebounceDelay": 1000,
+  "copyFontsFrom": ["node_modules/bootstrap/dist/fonts/*"],
+  "copyFontsTo": "fonts/",
+  "minifyCssFrom": ["node_modules/bootstrap/dist/css/bootstrap.min.css",
+                    "node_modules/angularjs-datepicker/dist/angular-datepicker.min.css",
+                    "temp/style.css"],
+  "minifyCssTo": "css/style.css",
+  "ngTemplatesFrom": "ng-templates/**/*.html",
+  "ngTemplatesTo": "temp/ng-templates.js"
+}

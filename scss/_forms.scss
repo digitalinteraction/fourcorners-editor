@@ -1,0 +1,15 @@
+.form-subgroup {
+  $side-padding: 10px;
+  $border-radius: 4px;
+  border: #e1e1e1 1px solid;
+  border-radius: $border-radius;
+  background: #fdfdfd;
+  padding: 10px $side-padding;
+  margin-bottom: 10px;
+  margin-left: -($side-padding);
+  margin-right: -($side-padding);
+}
+
+textarea {
+  max-width: 100%;
+}

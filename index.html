@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>4 Corners Editor</title>
+
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body ng-app="FourCornersEditor">
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <form class="form-horizontal" ng-controller="FormController">
+                <fieldset ng-include="'ng-templates/context.html'"></fieldset>
+                <fieldset ng-include="'ng-templates/links.html'"></fieldset>
+                <fieldset ng-include="'ng-templates/backstory.html'"></fieldset>
+                <fieldset ng-include="'ng-templates/creative-commons.html'"></fieldset>
+                <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="generate()">
+                            Generate YAML
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="index.min.js"></script>
+</body>
+</html>
