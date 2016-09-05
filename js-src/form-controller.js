@@ -12,10 +12,10 @@ var SOURCE_TYPES = ['Image', 'YouTube'],
     DATE_FORMAT = 'MMMM d, yyyy';
 
 module.exports = function (app) {
-    app.controller('FormController', ['$scope', '$filter', controllerFn]);
+    app.controller('FormController', ['$scope', '$filter', '$timeout', controllerFn]);
 };
 
-function controllerFn($scope, $filter) {
+function controllerFn($scope, $filter, $timeout) {
 
     $scope.sourceTypes = SOURCE_TYPES;
     $scope.dateFormat = DATE_FORMAT;
@@ -57,7 +57,9 @@ function controllerFn($scope, $filter) {
         saveAs(b, "4c.yaml");
     };
 
-    loadTesDataToController($scope);
+    $scope.loadDataFromReader = function (data) {
+        loadDataToController.call($scope, data);
+    };
 }
 
 function ContextSourceModel(obj) {
@@ -120,51 +122,36 @@ function scopeToJSON($filter) {
     return obj;
 }
 
-function loadTesDataToController($scope) {
-    $scope.contextSources = [
-        new ContextSourceModel({
-            sourceType: 'Image',
-            source: 'img/1-0.jpg',
-            credit: 'Eddie Adams/AP'
-        }),
-        new ContextSourceModel({
-            sourceType: 'Image',
-            source: 'img/1-0.jpg',
-            credit: 'Eddie Adams/AP'
-        }),
-        new ContextSourceModel({
-            sourceType: 'YouTube',
-            source: 'S9Jy3cLmqrE'
-        })
-    ];
+function loadDataToController(data) {
+    this.contextSources = data.context.map(function (c) {
+        return new ContextSourceModel({
+            sourceType: c.src ? SOURCE_TYPES[0] : SOURCE_TYPES[1],
+            source: c.src || c.youtube_id,
+            credit: c.credit
+        });
+    });
 
-    $scope.links = [
-        new LinkModel({
-            title: 'Alan Kurdi: Why one picture cut through',
-            url: 'http://www.bbc.co.uk/news/world-europe-34150419'
-        }),
-        new LinkModel({
-            title: 'Dispatches: Why I Shared a Horrific Photo of a Drowned Syrian Child',
-            url: 'https://www.hrw.org/news/2015/09/02/dispatches-why-i-shared-horrific-photo-drowned-syrian-child'
-        }),
-        new LinkModel({
-            title: 'Death of Alan Kurdi',
-            url: 'https://en.wikipedia.org/wiki/Death_of_Alan_Kurdi'
-        })
-    ];
+    this.links = data.links.map(function (l) {
+        return new LinkModel({
+            title: l.title,
+            url: l.url
+        });
+    });
 
-    $scope.backStory = {
-        text: '“On the one hand, I wish I hadn’t had to take that picture. I would have much preferred to have taken one of Alan playing on the beach than photographing his corpse. What I saw has left a terrible impression that keeps me awake at night. “Then again, I am happy that the word finally cares and is mourning the dead children. I hope that my picture can contribute to changing the way we look at immigration in Europe, and that no more people have to die on their way out of a war."',
-        author: 'Nilüfer Demir',
-        magazine: 'Vice',
-        date: 'September 4, 2015',
-        url: 'https://www.vice.com/en_uk/read/nilfer-demir-interview-876'
+    this.backStory = {
+        text: data.backStory.text,
+        author: data.backStory.author,
+        magazine: data.backStory.magazine,
+        date: data.backStory.date,
+        url: data.backStory.magazineUrl
     };
 
-    $scope.creativeCommons = {
-        ccOwnerName: 'Nilüfer Demir/DHA2015',
-        ccYear: '2015',
-        codeOfEthics: 'While all photography is interpretive, as a photojournalist I consider my photographs are meant to respect the visible facts of the situations I depict. I do not add or subtract elements to or from my photographs.',
-        description: 'A Turkish officer near the body of Alan Kurdi, a 3-year-old Syrian refugee who drowned off Turkey’s Bodrum Peninsula. The body of his brother, Ghalib, washed up nearby. September 1, 2015.'
+    var copyright = data.creativeCommons.copyright.split(' © ');
+    this.creativeCommons = {
+        ccOwnerName: copyright[0],
+        ccYear: copyright[1],
+        codeOfEthics: data.creativeCommons.codeOfEthics,
+        description: data.creativeCommons.description
     };
+    this.$apply();
 }
