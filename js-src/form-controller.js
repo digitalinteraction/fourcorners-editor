@@ -20,6 +20,7 @@ function controllerFn($scope, $filter, $timeout) {
     $scope.sourceTypes = SOURCE_TYPES;
     $scope.dateFormat = DATE_FORMAT;
 
+    $scope.welcomeState = true;
     $scope.contextSources = [new ContextSourceModel()];
     $scope.links = [new LinkModel()];
     $scope.backStory = {
@@ -36,6 +37,9 @@ function controllerFn($scope, $filter, $timeout) {
         description: ''
     };
 
+    $scope.toggleWelcomeState = function() {
+        $scope.welcomeState = !$scope.welcomeState;
+    };
     $scope.addContext = function () {
         $scope.contextSources.push(new ContextSourceModel());
     };
@@ -153,5 +157,6 @@ function loadDataToController(data) {
         codeOfEthics: data.creativeCommons.codeOfEthics,
         description: data.creativeCommons.description
     };
+    this.welcomeState = false;
     this.$apply();
 }
