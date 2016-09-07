@@ -179,4 +179,14 @@ angular.module('FourCornersEditor').run(['$templateCache', function($templateCac
     "</div>"
   );
 
+
+  $templateCache.put('ng-templates/ng-yaml-reader.html',
+    "<div class=\"file-reader\" ng-show=\"visible\">\n" +
+    "    <div class=\"file-reader-caption\">\n" +
+    "        Edit existing YAML file by dropping it here or click to browse\n" +
+    "    </div>\n" +
+    "    <input type=\"file\">\n" +
+    "</div>"
+  );
+
 }]);
