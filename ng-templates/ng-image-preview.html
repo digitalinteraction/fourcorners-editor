@@ -1,0 +1,14 @@
+<div class="image-preview-container" ng-show="src">
+    <div class="image-preview-wrap">
+        <img ng-src="{{ src }}" class="img-responsive" data-4c>
+        <div class="image-preview-switch">
+            <a href="" ng-click="dropSrc()">Change image</a>
+        </div>
+    </div>
+</div>
+<div class="image-preview" ng-show="visible && !src">
+    <div class="image-preview-caption">
+        Drop your main image here for Four Corners preview
+    </div>
+    <input type="file">
+</div>

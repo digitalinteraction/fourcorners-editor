@@ -20,7 +20,7 @@ function controllerFn($scope, $filter, $timeout) {
     $scope.sourceTypes = SOURCE_TYPES;
     $scope.dateFormat = DATE_FORMAT;
 
-    $scope.welcomeState = true;
+    $scope.welcomeState = false;
     $scope.contextSources = [new ContextSourceModel()];
     $scope.links = [new LinkModel()];
     $scope.backStory = {
