@@ -183,7 +183,7 @@ angular.module('FourCornersEditor').run(['$templateCache', function($templateCac
   $templateCache.put('ng-templates/ng-image-preview.html',
     "<div class=\"image-preview-container\" ng-show=\"src\">\n" +
     "    <div class=\"image-preview-wrap\">\n" +
-    "        <img ng-src=\"{{ src }}\" class=\"img-responsive\" data-4c>\n" +
+    "        <div img-placeholder></div>\n" +
     "        <div class=\"image-preview-switch\">\n" +
     "            <a href=\"\" ng-click=\"dropSrc()\">Change image</a>\n" +
     "        </div>\n" +

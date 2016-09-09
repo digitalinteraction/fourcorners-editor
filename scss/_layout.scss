@@ -1,0 +1,10 @@
+.fixed {
+  position: fixed;
+  top: 75px;
+
+  @media (max-width: 992px) {
+    position: relative;
+    top: 0;
+  }
+
+}

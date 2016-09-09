@@ -37,7 +37,9 @@ function controllerFn($scope, $filter, $timeout) {
         description: ''
     };
 
-    $scope.toggleWelcomeState = function() {
+    $scope.json = scopeToJSON.call($scope, $filter);
+
+    $scope.toggleWelcomeState = function () {
         $scope.welcomeState = !$scope.welcomeState;
     };
     $scope.addContext = function () {
@@ -64,6 +66,12 @@ function controllerFn($scope, $filter, $timeout) {
     $scope.loadDataFromReader = function (data) {
         loadDataToController.call($scope, data);
     };
+
+    $scope.$watch(function () {
+        return scopeToString.call($scope, $filter);
+    }, function () {
+        $scope.json = scopeToJSON.call($scope, $filter);
+    });
 }
 
 function ContextSourceModel(obj) {
@@ -87,6 +95,9 @@ function ContextSourceModel(obj) {
         }
         return obj;
     };
+    this.toString = function () {
+        return this.sourceType + ', ' + this.source + ', ' + this.credit;
+    };
 }
 
 function LinkModel(obj) {
@@ -99,6 +110,29 @@ function LinkModel(obj) {
             url: this.url
         }
     };
+    this.toString = function () {
+        return this.title + ', ' + this.url;
+    };
+}
+
+function scopeToString($filter) {
+    var contextStr = '',
+        linksStr = '';
+    this.contextSources.forEach(function (item) {
+        contextStr += item.toString();
+    });
+    this.links.forEach(function (item) {
+        linksStr += item.toString();
+    });
+
+    var backStoryStr = [this.backStory.text,
+        this.backStory.author,
+        this.backStory.magazine,
+        this.backStory.url,
+        $filter('date')(this.backStory.date, this.backStory.dateFormat)].join(', ');
+
+    var creativeCommonsStr = [this.copyright, this.codeOfEthics, this.description].join(', ');
+    return [contextStr, linksStr, backStoryStr, creativeCommonsStr].join('; ');
 }
 
 function scopeToJSON($filter) {
@@ -118,8 +152,11 @@ function scopeToJSON($filter) {
         magazineUrl: this.backStory.url,
         date: $filter('date')(this.backStory.date, this.backStory.dateFormat)
     };
+    var copyright = this.creativeCommons.ccOwnerName ?
+        [this.creativeCommons.ccOwnerName, this.creativeCommons.ccYear].join(' © ') :
+        '';
     obj.creativeCommons = {
-        copyright: this.creativeCommons.ccOwnerName + ' © ' + this.creativeCommons.ccYear,
+        copyright: copyright,
         codeOfEthics: this.creativeCommons.codeOfEthics,
         description: this.creativeCommons.description
     };
