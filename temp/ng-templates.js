@@ -180,6 +180,24 @@ angular.module('FourCornersEditor').run(['$templateCache', function($templateCac
   );
 
 
+  $templateCache.put('ng-templates/ng-image-preview.html',
+    "<div class=\"image-preview-container\" ng-show=\"src\">\n" +
+    "    <div class=\"image-preview-wrap\">\n" +
+    "        <div img-placeholder></div>\n" +
+    "        <div class=\"image-preview-switch\">\n" +
+    "            <a href=\"\" ng-click=\"dropSrc()\">Change image</a>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "<div class=\"image-preview\" ng-show=\"visible && !src\">\n" +
+    "    <div class=\"image-preview-caption\">\n" +
+    "        Drop your main image here for Four Corners preview\n" +
+    "    </div>\n" +
+    "    <input type=\"file\">\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('ng-templates/ng-yaml-reader.html',
     "<div class=\"file-reader\" ng-show=\"visible\">\n" +
     "    <div class=\"file-reader-caption\">\n" +

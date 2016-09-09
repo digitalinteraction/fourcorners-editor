@@ -9,11 +9,24 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body ng-app="FourCornersEditor">
-<div class="container" ng-controller="FormController" ng-cloak>
+<div class="container-fluid" ng-controller="FormController" ng-cloak>
     <div class="row">
-        <div class="col-sm-8 col-sm-offset-2">
+        <div class="col-xs-12">
+            <h1 class="text-center">Four Corners meta data files editor</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 fixed">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div ng-image-preview fc-data="json"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7 col-md-offset-5">
             <form class="form-horizontal">
-                <h1>Four Corners meta data files editor</h1>
                 <div ng-show="welcomeState">
                     <div class="form-group">
                         <div class="col-xs-12">
