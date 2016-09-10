@@ -20,7 +20,7 @@ function controllerFn($scope, $filter, $timeout) {
     $scope.sourceTypes = SOURCE_TYPES;
     $scope.dateFormat = DATE_FORMAT;
 
-    $scope.welcomeState = true;
+    $scope.welcomeState = false;
     $scope.contextSources = [new ContextSourceModel()];
     $scope.links = [new LinkModel()];
     $scope.backStory = {
@@ -81,9 +81,9 @@ function ContextSourceModel(obj) {
     this.credit = obj.credit ? obj.credit : '';
     this.getPlaceholder = function () {
         if (this.sourceType == SOURCE_TYPES[0]) {
-            return 'images/example.jpg or http://example.com/images/example.png';
+            return 'http://example.com/images/example.png';
         } else if (this.sourceType == SOURCE_TYPES[1]) {
-            return '123456';
+            return 'jNQXAC9IVRw';
         }
     };
     this.toJSON = function () {

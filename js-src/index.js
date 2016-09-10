@@ -17,4 +17,4 @@ var moduleRequirements = ['ngSanitize', 'ngAnimate', 'ngTouch', '720kb.datepicke
 require('./form-controller')(app);
 require('./ng-yaml-reader')(app);
 require('./ng-image-preview')(app);
-require('./testJson')();
+require('./ng-affix')(app);

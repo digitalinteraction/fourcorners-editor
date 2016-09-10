@@ -1,10 +1,31 @@
-.fixed {
-  position: fixed;
+@import "config";
+@import "mixins";
+
+@mixin unstick() {
+  position: relative;
+  padding-top: 0;
+  top: 0;
+}
+
+.sticky-area {
+  position: absolute;
+  padding-top: 0;
   top: 75px;
+  @include transition(padding-top $transition-type $transition-duration);
+
+  &.affix {
+    position: fixed;
+    padding-top: 10px;
+    top: 0;
+  }
 
   @media (max-width: 992px) {
-    position: relative;
-    top: 0;
+    @include unstick();
+
+    &.affix {
+      @include unstick();
+    }
+
   }
 
 }
