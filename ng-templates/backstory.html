@@ -1,11 +1,14 @@
 <legend>Backstory</legend>
-<div class="form-group">
+<div class="form-group" ng-class="{'has-warning': !backStory.text}">
     <label class="control-label col-sm-3" for="backstory-text">Story</label>
     <div class="col-sm-9">
         <textarea type="text"
                   id="backstory-text"
                   class="form-control" rows="10" placeholder="Text of the story"
                   ng-model="backStory.text"></textarea>
+        <p class="help-block" ng-hide="backStory.text">
+            Backstory has no text
+        </p>
     </div>
 </div>
 <div class="form-group">

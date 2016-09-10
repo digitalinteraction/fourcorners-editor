@@ -1,5 +1,5 @@
 <legend>Creative commons</legend>
-<div class="form-group">
+<div class="form-group" ng-class="{'has-warning': !creativeCommons.ccOwnerName}">
     <label class="control-label col-sm-3" for="creative-commons-owner">Copyright</label>
     <div class="col-sm-9">
         <div class="row">
@@ -8,6 +8,9 @@
                        id="creative-commons-owner"
                        class="form-control" placeholder="Name of the copyright owner"
                        ng-model="creativeCommons.ccOwnerName">
+                <p class="help-block" ng-hide="creativeCommons.ccOwnerName">
+                    Copyright owner is not specified
+                </p>
             </div>
             <div class="col-xs-4">
                 <input type="text" class="form-control" placeholder="Year"

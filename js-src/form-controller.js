@@ -8,20 +8,17 @@ var Blob = require('blob'),
     yaml = require('js-yaml'),
     saveAs = require('browser-filesaver').saveAs;
 
-var SOURCE_TYPES = ['Image', 'YouTube'],
-    DATE_FORMAT = 'MMMM d, yyyy';
-
 module.exports = function (app) {
-    app.controller('FormController', ['$scope', '$filter', '$timeout', controllerFn]);
+    app.controller('FormController', ['$scope', '$filter', 'appConstants', controllerFn]);
 };
 
-function controllerFn($scope, $filter, $timeout) {
+function controllerFn($scope, $filter, appConstants) {
 
-    $scope.sourceTypes = SOURCE_TYPES;
-    $scope.dateFormat = DATE_FORMAT;
+    $scope.sourceTypes = appConstants.SOURCE_TYPES;
+    $scope.dateFormat = appConstants.DATE_FORMAT;
 
     $scope.welcomeState = false;
-    $scope.contextSources = [new ContextSourceModel()];
+    $scope.contextSources = [new ContextSourceModel(appConstants)];
     $scope.links = [new LinkModel()];
     $scope.backStory = {
         text: '',
@@ -43,7 +40,7 @@ function controllerFn($scope, $filter, $timeout) {
         $scope.welcomeState = !$scope.welcomeState;
     };
     $scope.addContext = function () {
-        $scope.contextSources.push(new ContextSourceModel());
+        $scope.contextSources.push(new ContextSourceModel(appConstants));
     };
     $scope.removeContext = function (item) {
         var i = $scope.contextSources.indexOf(item);
@@ -64,7 +61,7 @@ function controllerFn($scope, $filter, $timeout) {
     };
 
     $scope.loadDataFromReader = function (data) {
-        loadDataToController.call($scope, data);
+        loadDataToController.call($scope, data, appConstants);
     };
 
     $scope.$watch(function () {
@@ -74,23 +71,16 @@ function controllerFn($scope, $filter, $timeout) {
     });
 }
 
-function ContextSourceModel(obj) {
+function ContextSourceModel(appConstants, obj) {
     obj = obj || {};
-    this.sourceType = obj.sourceType ? obj.sourceType : SOURCE_TYPES[0];
+    this.sourceType = obj.sourceType ? obj.sourceType : appConstants.SOURCE_TYPES[0];
     this.source = obj.source ? obj.source : '';
     this.credit = obj.credit ? obj.credit : '';
-    this.getPlaceholder = function () {
-        if (this.sourceType == SOURCE_TYPES[0]) {
-            return 'http://example.com/images/example.png';
-        } else if (this.sourceType == SOURCE_TYPES[1]) {
-            return 'jNQXAC9IVRw';
-        }
-    };
     this.toJSON = function () {
         var obj = {credit: this.credit};
-        if (this.sourceType == SOURCE_TYPES[0]) {
+        if (this.sourceType == appConstants.SOURCE_TYPES[0]) {
             obj.src = this.source;
-        } else if (this.sourceType == SOURCE_TYPES[1]) {
+        } else if (this.sourceType == appConstants.SOURCE_TYPES[1]) {
             obj.youtube_id = this.source;
         }
         return obj;
@@ -166,10 +156,10 @@ function scopeToJSON($filter) {
     return obj;
 }
 
-function loadDataToController(data) {
+function loadDataToController(data, appConstants) {
     this.contextSources = data.context.map(function (c) {
-        return new ContextSourceModel({
-            sourceType: c.src ? SOURCE_TYPES[0] : SOURCE_TYPES[1],
+        return new ContextSourceModel(appConstants, {
+            sourceType: c.src ? appConstants.SOURCE_TYPES[0] : appConstants.SOURCE_TYPES[1],
             source: c.src || c.youtube_id,
             credit: c.credit
         });

@@ -3,13 +3,16 @@ angular.module('FourCornersEditor').run(['$templateCache', function($templateCac
 
   $templateCache.put('ng-templates/backstory.html',
     "<legend>Backstory</legend>\n" +
-    "<div class=\"form-group\">\n" +
+    "<div class=\"form-group\" ng-class=\"{'has-warning': !backStory.text}\">\n" +
     "    <label class=\"control-label col-sm-3\" for=\"backstory-text\">Story</label>\n" +
     "    <div class=\"col-sm-9\">\n" +
     "        <textarea type=\"text\"\n" +
     "                  id=\"backstory-text\"\n" +
     "                  class=\"form-control\" rows=\"10\" placeholder=\"Text of the story\"\n" +
     "                  ng-model=\"backStory.text\"></textarea>\n" +
+    "        <p class=\"help-block\" ng-hide=\"backStory.text\">\n" +
+    "            Backstory has no text\n" +
+    "        </p>\n" +
     "    </div>\n" +
     "</div>\n" +
     "<div class=\"form-group\">\n" +
@@ -53,7 +56,10 @@ angular.module('FourCornersEditor').run(['$templateCache', function($templateCac
 
   $templateCache.put('ng-templates/context.html',
     "<legend>Context</legend>\n" +
-    "<div class=\"form-subgroup\" ng-repeat=\"context in contextSources\">\n" +
+    "<div class=\"form-subgroup\"\n" +
+    "     ng-repeat=\"context in contextSources\"\n" +
+    "     ng-controller=\"ContextController\"\n" +
+    "     ng-init=\"context = context\">\n" +
     "    <div class=\"form-group\">\n" +
     "        <div class=\"col-xs-12\">\n" +
     "            <button type=\"button\" class=\"close\" title=\"Remove\"\n" +
@@ -71,7 +77,7 @@ angular.module('FourCornersEditor').run(['$templateCache', function($templateCac
     "            </select>\n" +
     "        </div>\n" +
     "    </div>\n" +
-    "    <div class=\"form-group\">\n" +
+    "    <div class=\"form-group\" ng-class=\"{'has-warning': getError()}\">\n" +
     "        <label class=\"control-label col-sm-3\" for=\"context-source-{{$index}}\"\n" +
     "               ng-show=\"context.sourceType == sourceTypes[0]\">Image source</label>\n" +
     "        <label class=\"control-label col-sm-3\" for=\"context-source-{{$index}}\"\n" +
@@ -80,8 +86,11 @@ angular.module('FourCornersEditor').run(['$templateCache', function($templateCac
     "            <input type=\"text\"\n" +
     "                   id=\"context-source-{{$index}}\"\n" +
     "                   class=\"form-control\"\n" +
-    "                   placeholder=\"{{context.getPlaceholder()}}\"\n" +
+    "                   placeholder=\"{{getPlaceholder()}}\"\n" +
     "                   ng-model=\"context.source\">\n" +
+    "            <p class=\"help-block\" ng-show=\"getError()\">\n" +
+    "                {{ getError() }}\n" +
+    "            </p>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "    <div class=\"form-group\">\n" +
@@ -106,7 +115,7 @@ angular.module('FourCornersEditor').run(['$templateCache', function($templateCac
 
   $templateCache.put('ng-templates/creative-commons.html',
     "<legend>Creative commons</legend>\n" +
-    "<div class=\"form-group\">\n" +
+    "<div class=\"form-group\" ng-class=\"{'has-warning': !creativeCommons.ccOwnerName}\">\n" +
     "    <label class=\"control-label col-sm-3\" for=\"creative-commons-owner\">Copyright</label>\n" +
     "    <div class=\"col-sm-9\">\n" +
     "        <div class=\"row\">\n" +
@@ -115,6 +124,9 @@ angular.module('FourCornersEditor').run(['$templateCache', function($templateCac
     "                       id=\"creative-commons-owner\"\n" +
     "                       class=\"form-control\" placeholder=\"Name of the copyright owner\"\n" +
     "                       ng-model=\"creativeCommons.ccOwnerName\">\n" +
+    "                <p class=\"help-block\" ng-hide=\"creativeCommons.ccOwnerName\">\n" +
+    "                    Copyright owner is not specified\n" +
+    "                </p>\n" +
     "            </div>\n" +
     "            <div class=\"col-xs-4\">\n" +
     "                <input type=\"text\" class=\"form-control\" placeholder=\"Year\"\n" +
@@ -160,13 +172,16 @@ angular.module('FourCornersEditor').run(['$templateCache', function($templateCac
     "                   ng-model=\"link.title\">\n" +
     "        </div>\n" +
     "    </div>\n" +
-    "    <div class=\"form-group\">\n" +
+    "    <div class=\"form-group\" ng-class=\"{'has-warning': !link.url}\">\n" +
     "        <label class=\"control-label col-sm-3\" for=\"link-url-{{$index}}\">URL</label>\n" +
     "        <div class=\"col-sm-9\">\n" +
     "            <input type=\"text\"\n" +
     "                   id=\"link-url-{{$index}}\"\n" +
     "                   class=\"form-control\" placeholder=\"http://example.com/story.html\"\n" +
     "                   ng-model=\"link.url\">\n" +
+    "            <p class=\"help-block\" ng-hide=\"link.url\">\n" +
+    "                Links without a valid URL will be ignored\n" +
+    "            </p>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +

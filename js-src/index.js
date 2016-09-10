@@ -14,7 +14,9 @@ require('fourcorners');
 var moduleRequirements = ['ngSanitize', 'ngAnimate', 'ngTouch', '720kb.datepicker'],
     app = angular.module('FourCornersEditor', moduleRequirements);
 
+require('./constants')(app);
 require('./form-controller')(app);
+require('./context-controller')(app);
 require('./ng-yaml-reader')(app);
 require('./ng-image-preview')(app);
 require('./ng-affix')(app);

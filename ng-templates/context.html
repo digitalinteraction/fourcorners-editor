@@ -1,5 +1,8 @@
 <legend>Context</legend>
-<div class="form-subgroup" ng-repeat="context in contextSources">
+<div class="form-subgroup"
+     ng-repeat="context in contextSources"
+     ng-controller="ContextController"
+     ng-init="context = context">
     <div class="form-group">
         <div class="col-xs-12">
             <button type="button" class="close" title="Remove"
@@ -17,7 +20,7 @@
             </select>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-class="{'has-warning': getError()}">
         <label class="control-label col-sm-3" for="context-source-{{$index}}"
                ng-show="context.sourceType == sourceTypes[0]">Image source</label>
         <label class="control-label col-sm-3" for="context-source-{{$index}}"
@@ -26,8 +29,11 @@
             <input type="text"
                    id="context-source-{{$index}}"
                    class="form-control"
-                   placeholder="{{context.getPlaceholder()}}"
+                   placeholder="{{getPlaceholder()}}"
                    ng-model="context.source">
+            <p class="help-block" ng-show="getError()">
+                {{ getError() }}
+            </p>
         </div>
     </div>
     <div class="form-group">
