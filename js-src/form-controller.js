@@ -20,7 +20,7 @@ function controllerFn($scope, $filter, $timeout) {
     $scope.sourceTypes = SOURCE_TYPES;
     $scope.dateFormat = DATE_FORMAT;
 
-    $scope.welcomeState = false;
+    $scope.welcomeState = true;
     $scope.contextSources = [new ContextSourceModel()];
     $scope.links = [new LinkModel()];
     $scope.backStory = {
@@ -131,7 +131,10 @@ function scopeToString($filter) {
         this.backStory.url,
         $filter('date')(this.backStory.date, this.backStory.dateFormat)].join(', ');
 
-    var creativeCommonsStr = [this.copyright, this.codeOfEthics, this.description].join(', ');
+    var creativeCommonsStr = [this.creativeCommons.ccOwnerName,
+        this.creativeCommons.ccYear,
+        this.creativeCommons.codeOfEthics,
+        this.creativeCommons.description].join(', ');
     return [contextStr, linksStr, backStoryStr, creativeCommonsStr].join('; ');
 }
 

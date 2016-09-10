@@ -191,7 +191,7 @@ angular.module('FourCornersEditor').run(['$templateCache', function($templateCac
     "</div>\n" +
     "<div class=\"image-preview\" ng-show=\"visible && !src\">\n" +
     "    <div class=\"image-preview-caption\">\n" +
-    "        Drop your main image here for Four Corners preview\n" +
+    "        Drop your main image here for Four Corners preview or click to browse\n" +
     "    </div>\n" +
     "    <input type=\"file\">\n" +
     "</div>"

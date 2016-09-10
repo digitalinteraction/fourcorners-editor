@@ -15,34 +15,36 @@
             <h1 class="text-center">Four Corners meta data files editor</h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-5 fixed">
-            <div class="form-group">
-                <div class="col-xs-12">
-                    <div ng-image-preview fc-data="json"></div>
+    <form class="form-horizontal">
+        <div class="row" ng-show="welcomeState">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <button type="button" class="btn btn-default btn-default btn-lg btn-block"
+                                ng-click="toggleWelcomeState()">
+                            Create new file
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div ng-yaml-reader on-read="loadDataFromReader"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-7 col-md-offset-5">
-            <form class="form-horizontal">
-                <div ng-show="welcomeState">
+        <div ng-hide="welcomeState">
+            <div class="row">
+                <div class="col-md-5 fixed">
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <button type="button" class="btn btn-default btn-default btn-lg btn-block"
-                                    ng-click="toggleWelcomeState()">
-                                Create new file
-                            </button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <div ng-yaml-reader on-read="loadDataFromReader"></div>
+                            <div ng-image-preview fc-data="json"></div>
                         </div>
                     </div>
                 </div>
-                <div ng-hide="welcomeState">
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-md-offset-5">
                     <fieldset ng-include="'ng-templates/context.html'"></fieldset>
                     <fieldset ng-include="'ng-templates/links.html'"></fieldset>
                     <fieldset ng-include="'ng-templates/backstory.html'"></fieldset>
@@ -59,9 +61,9 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <script src="index.min.js"></script>
