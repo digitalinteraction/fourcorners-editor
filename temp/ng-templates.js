@@ -214,6 +214,13 @@ angular.module('FourCornersEditor').run(['$templateCache', function($templateCac
 
 
   $templateCache.put('ng-templates/ng-yaml-reader.html',
+    "<div class=\"file-reader-errors\" ng-show=\"visible && errorList.length\">\n" +
+    "    <div class=\"alert alert-danger\">\n" +
+    "        <ul>\n" +
+    "            <li ng-repeat=\"error in errorList\">{{ error }}</li>\n" +
+    "        </ul>\n" +
+    "    </div>\n" +
+    "</div>\n" +
     "<div class=\"file-reader\" ng-show=\"visible\">\n" +
     "    <div class=\"file-reader-caption\">\n" +
     "        Edit existing YAML file by dropping it here or click to browse\n" +
