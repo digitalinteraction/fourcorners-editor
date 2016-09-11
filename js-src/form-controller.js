@@ -13,11 +13,11 @@ module.exports = function (app) {
 };
 
 function controllerFn($scope, $filter, appConstants) {
-
     $scope.sourceTypes = appConstants.SOURCE_TYPES;
     $scope.dateFormat = appConstants.DATE_FORMAT;
 
-    $scope.welcomeState = false;
+    $scope.loadYamlFileView = true;
+    $scope.pageIsJustOpened = true;
     $scope.contextSources = [new ContextSourceModel(appConstants)];
     $scope.links = [new LinkModel()];
     $scope.backStory = {
@@ -36,8 +36,9 @@ function controllerFn($scope, $filter, appConstants) {
 
     $scope.json = scopeToJSON.call($scope, $filter);
 
-    $scope.toggleWelcomeState = function () {
-        $scope.welcomeState = !$scope.welcomeState;
+    $scope.toggleView = function () {
+        $scope.pageIsJustOpened = false;
+        $scope.loadYamlFileView = !$scope.loadYamlFileView;
     };
     $scope.addContext = function () {
         $scope.contextSources.push(new ContextSourceModel(appConstants));
@@ -187,6 +188,6 @@ function loadDataToController(data, appConstants) {
         codeOfEthics: data.creativeCommons.codeOfEthics,
         description: data.creativeCommons.description
     };
-    this.welcomeState = false;
+    this.toggleView();
     this.$apply();
 }

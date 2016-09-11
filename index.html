@@ -16,13 +16,13 @@
         </div>
     </div>
     <form class="form-horizontal">
-        <div class="row" ng-show="welcomeState">
+        <div class="row" ng-show="loadYamlFileView">
             <div class="col-sm-8 col-sm-offset-2">
                 <div class="form-group">
                     <div class="col-xs-12">
                         <button type="button" class="btn btn-default btn-default btn-lg btn-block"
-                                ng-click="toggleWelcomeState()">
-                            Create new file
+                                ng-click="toggleView()">
+                            {{ pageIsJustOpened ? 'Create new file' : 'Back to form' }}
                         </button>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div ng-hide="welcomeState">
+        <div ng-hide="loadYamlFileView">
             <div class="row">
                 <div class="col-md-5 sticky-area" ng-affix>
                     <div class="form-group">
@@ -55,7 +55,7 @@
                                 Generate YAML
                             </button>
                             <button type="button" class="btn btn-link btn-block btn-lg"
-                                    ng-click="toggleWelcomeState()">
+                                    ng-click="toggleView()">
                                 Edit existing YAML file
                             </button>
                         </div>
