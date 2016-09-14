@@ -18,8 +18,10 @@ function controllerFn($scope, $filter, appConstants) {
 
     $scope.loadYamlFileView = true;
     $scope.pageIsJustOpened = true;
-    $scope.contextSources = [new ContextSourceModel(appConstants)];
-    $scope.links = [new LinkModel()];
+    $scope.contextSources = [];
+    $scope.links = [];
+    // $scope.contextSources = [new ContextSourceModel(appConstants)];
+    // $scope.links = [new LinkModel()];
     $scope.backStory = {
         text: '',
         author: '',

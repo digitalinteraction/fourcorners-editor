@@ -16,4 +16,4 @@ This information is stored in a simple (YAML) text file which the creator places
 
 ----
 
-> Four Corners is an open source initiate delivered as part of a collaboration between leading universities and journalist organisations. If you would like to find out more, please contact us directly <info@authograph.org>.
+> Four Corners is an open source initiate delivered as part of a collaboration between leading universities and journalist organisations. If you would like to find out more, please contact us directly <info@authograph.org>. Content imagery used in the demo is photography by Eddie Adams/© Associated Press.
