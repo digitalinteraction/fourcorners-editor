@@ -2,7 +2,7 @@
     <img src="https://digitalinteraction.github.io/fourcorners/docs/logo_small.png" />
 </p>
 
-[Four Corners Online Editor](https://github.com/digitalinteraction/fourcorners) is a simple web tool that allows content creators to display rich metadata associated with a photographic image.
+[Four Corners Online Editor](https://digitalinteraction.github.io/fourcorners-editor) is a simple web tool that allows content creators to display rich metadata associated with a photographic image.
 
 > This editor is to be used in conjunction with Four Corners enabled content.
 >
