@@ -4,8 +4,9 @@
 
 [Four Corners Online Editor](https://github.com/digitalinteraction/fourcorners) is a simple web tool that allows content creators to display rich metadata associated with a photographic image.
 
-> This editor is to be used in conjunction with Four Corners enabled content. \
-[Found out how to enable my content](https://github.com/digitalinteraction/fourcorners) 
+> This editor is to be used in conjunction with Four Corners enabled content.
+>
+> [Found out how to enable my content](https://github.com/digitalinteraction/fourcorners) 
 
 This information is stored in a simple (YAML) text file which the creator places with the image on their website. These 'sidecar' files can be created manually, but you can also use this online editor to create and edit your metadata.
 
