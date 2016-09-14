@@ -10,7 +10,7 @@
 .sticky-area {
   position: absolute;
   padding-top: 0;
-  top: 75px;
+  // top: 75px;
   @include transition(padding-top $transition-type $transition-duration);
 
   &.affix {

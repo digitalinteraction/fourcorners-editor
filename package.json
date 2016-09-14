@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/digitalinteraction/fourcorners.git"
+    "url": "git+https://github.com/digitalinteraction/fourcorners-editor.git"
   },
   "author": "Tim Osadchiy",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/digitalinteraction/fourcorners/issues"
+    "url": "https://github.com/digitalinteraction/fourcorners-editor/issues"
   },
-  "homepage": "https://github.com/digitalinteraction/fourcorners#readme",
+  "homepage": "https://github.com/digitalinteraction/fourcorners-editor#readme",
   "devDependencies": {
     "envify": "^3.4.1",
     "grunt": "^1.0.1",
