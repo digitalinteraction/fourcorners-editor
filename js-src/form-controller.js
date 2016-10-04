@@ -58,7 +58,7 @@ function controllerFn($scope, $filter, appConstants) {
     };
     $scope.generate = function () {
         var j = scopeToJSON.call($scope, $filter),
-            y = yaml.safeDump(j),
+            y = addMessageForSafari(yaml.safeDump(j)),
             b = new Blob([y], {type: "text/plain;charset=utf-8"});
         saveAs(b, "4c.yaml");
     };
@@ -192,4 +192,16 @@ function loadDataToController(data, appConstants) {
     };
     this.toggleView();
     this.$apply();
+}
+
+function addMessageForSafari(text) {
+    if (!(navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1)) {
+        return text;
+    }
+    var instructions = "# Download instructions for Safari Users: \n" +
+        "# 1. Press ⌘ + S \n" +
+        "# 2. Type file name with yaml extension in 'Export As'. Example: YourFileName.yaml\n" +
+        "# 3. Select the folder to save in 'Where'. Example: Downloads\n" +
+        "# 4. Select 'Page Source' in 'Format'.\n\n";
+    return instructions + text;
 }
