@@ -11,8 +11,12 @@
 <div class="container-fluid" ng-controller="FormController" ng-cloak>
     <div class="row">
         <div class="col-xs-12">
-            
-            <h1 class="text-center"><img style="margin-top:-5px;height:50px" src="https://digitalinteraction.github.io/fourcorners/docs/logo_small.png" /> Four Corners Metadata Editor<br><small>Generate and edit YAML sidecar files for your images.</small></h1>
+
+            <h1 class="text-center"><img style="margin-top:-5px;height:50px"
+                                         src="https://digitalinteraction.github.io/fourcorners/docs/logo_small.png"/>
+                Four Corners Metadata Editor<br>
+                <small>Generate and edit YAML sidecar files for your images.</small>
+            </h1>
         </div>
     </div>
     <hr>
@@ -53,10 +57,29 @@
                     <hr>
                     <div class="form-group">
                         <div class="col-sm-9 col-sm-offset-3">
-                            <em>Pressing this button will let you downnload a .yml file. You should name this file to the same thing as your primary image and upload to the same place on your website</em>
-                            <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="generate()">
-                                Save and Download Metadata (YAML)
-                            </button>
+                            <em>Pressing this button will let you downnload a .yml file. You should name this file to
+                                the same thing as your primary image and upload to the same place on your website</em>
+                            <div class="btn-group btn-group-lg btn-group-block">
+                                <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="generate()">
+                                    Download as YAML
+                                </button>
+                                <div class="btn-group btn-group-lg dropup"
+                                     ng-class="{open: dropdownIsVisible}">
+                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                            ng-click="toggleDropdown()">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="#">Download as YAML</a></li>
+                                        <li><a href="#">Copy as YAML inline script</a></li>
+                                        <li><a href="#">Download as XML</a></li>
+                                        <li><a href="#">Copy as XML inline script</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                             <!--<button type="button" class="btn btn-link btn-block btn-lg"
                                     ng-click="toggleView()">
                                 Edit existing YAML file

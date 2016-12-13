@@ -16,8 +16,9 @@ function controllerFn($scope, $filter, appConstants) {
     $scope.sourceTypes = appConstants.SOURCE_TYPES;
     $scope.dateFormat = appConstants.DATE_FORMAT;
 
-    $scope.loadYamlFileView = true;
+    $scope.loadYamlFileView = false;
     $scope.pageIsJustOpened = true;
+    $scope.dropdownIsVisible = false;
     $scope.contextSources = [];
     $scope.links = [];
     // $scope.contextSources = [new ContextSourceModel(appConstants)];
@@ -38,6 +39,9 @@ function controllerFn($scope, $filter, appConstants) {
 
     $scope.json = scopeToJSON.call($scope, $filter);
 
+    $scope.toggleDropdown = function () {
+        $scope.dropdownIsVisible = !$scope.dropdownIsVisible;
+    };
     $scope.toggleView = function () {
         $scope.pageIsJustOpened = false;
         $scope.loadYamlFileView = !$scope.loadYamlFileView;
