@@ -4,27 +4,32 @@
 
 'use strict';
 
-var Blob = require('blob'),
-    yaml = require('js-yaml'),
-    saveAs = require('browser-filesaver').saveAs,
-    addMessageForSafari = require("./add-message-for-safari"),
-    jsonToXml = require("./json-to-xml"),
-    loadDataToController = require("./load-data-to-controller"),
+var loadDataToController = require("./load-data-to-controller"),
     scopeToJSON = require("./scope-to-json"),
     ContextSourceModel = require("./context-source-model"),
-    LinkModel = require("./link-model");
+    LinkModel = require("./link-model"),
+    downloadButtons = require("./get-download-buttons")();
+
+var DOWNLOAD_BUTTON_STORAGE_ITEM_NAME = "downloadFn";
 
 module.exports = function (app) {
     app.controller('FormController', ['$scope', '$filter', 'appConstants', controllerFn]);
 };
 
 function controllerFn($scope, $filter, appConstants) {
+
+    $scope.downloadButtons = downloadButtons;
+    $scope.selectedDownloadButton = downloadButtons.filter(function (item) {
+        return item.id == localStorage.getItem(DOWNLOAD_BUTTON_STORAGE_ITEM_NAME);
+    })[0] || downloadButtons[0];
+
     $scope.sourceTypes = appConstants.SOURCE_TYPES;
     $scope.dateFormat = appConstants.DATE_FORMAT;
 
     $scope.loadYamlFileView = false;
     $scope.pageIsJustOpened = true;
     $scope.dropdownIsVisible = false;
+
     $scope.contextSources = [];
     $scope.links = [];
     // $scope.contextSources = [new ContextSourceModel(appConstants)];
@@ -67,18 +72,11 @@ function controllerFn($scope, $filter, appConstants) {
         $scope.links.splice(i, 1);
     };
 
-    $scope.downloadYaml = function () {
-        var j = scopeToJSON.call($scope, $filter),
-            y = addMessageForSafari(yaml.safeDump(j), "yaml"),
-            b = new Blob([y], {type: "text/plain;charset=utf-8"});
-        saveAs(b, "4c.yaml");
-    };
-
-    $scope.downloadXml = function () {
-        var j = scopeToJSON.call($scope, $filter),
-            y = addMessageForSafari(jsonToXml(j), "xml"),
-            b = new Blob([y], {type: "text/plain;charset=utf-8"});
-        saveAs(b, "4c.xml");
+    $scope.generate = function (button) {
+        localStorage.setItem(DOWNLOAD_BUTTON_STORAGE_ITEM_NAME, button.id);
+        $scope.selectedDownloadButton = button;
+        $scope.dropdownIsVisible = false;
+        button.fn($scope, $filter);
     };
 
     $scope.loadDataFromReader = function (data) {
