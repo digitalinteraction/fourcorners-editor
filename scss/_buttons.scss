@@ -1,0 +1,13 @@
+.btn-group-block {
+  display: table;
+  table-layout: auto;
+  width: 100%;
+  border-collapse: separate;
+
+  .btn-group {
+    display: table-cell;
+    float: none;
+    width: 1%;
+  }
+
+}
