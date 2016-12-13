@@ -6,7 +6,9 @@
 
 var Blob = require('blob'),
     yaml = require('js-yaml'),
-    saveAs = require('browser-filesaver').saveAs;
+    saveAs = require('browser-filesaver').saveAs,
+    addMessageForSafari = require("./add-message-for-safari"),
+    jsonToXml = require("./json-to-xml");
 
 module.exports = function (app) {
     app.controller('FormController', ['$scope', '$filter', 'appConstants', controllerFn]);
@@ -60,11 +62,19 @@ function controllerFn($scope, $filter, appConstants) {
         var i = $scope.links.indexOf(item);
         $scope.links.splice(i, 1);
     };
-    $scope.generate = function () {
+
+    $scope.downloadYaml = function () {
         var j = scopeToJSON.call($scope, $filter),
-            y = addMessageForSafari(yaml.safeDump(j)),
+            y = addMessageForSafari(yaml.safeDump(j), "yaml"),
             b = new Blob([y], {type: "text/plain;charset=utf-8"});
         saveAs(b, "4c.yaml");
+    };
+
+    $scope.downloadXml = function () {
+        var j = scopeToJSON.call($scope, $filter),
+            y = addMessageForSafari(jsonToXml(j), "xml"),
+            b = new Blob([y], {type: "text/plain;charset=utf-8"});
+        saveAs(b, "4c.xml");
     };
 
     $scope.loadDataFromReader = function (data) {
@@ -196,16 +206,4 @@ function loadDataToController(data, appConstants) {
     };
     this.toggleView();
     this.$apply();
-}
-
-function addMessageForSafari(text) {
-    if (!(navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1)) {
-        return text;
-    }
-    var instructions = "# Download instructions for Safari Users: \n" +
-        "# 1. Press ⌘ + S \n" +
-        "# 2. Type file name with yaml extension in 'Export As'. Example: YourFileName.yaml\n" +
-        "# 3. Select the folder to save in 'Where'. Example: Downloads\n" +
-        "# 4. Select 'Page Source' in 'Format'.\n\n";
-    return instructions + text;
 }

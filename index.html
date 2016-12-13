@@ -60,7 +60,7 @@
                             <em>Pressing this button will let you downnload a .yml file. You should name this file to
                                 the same thing as your primary image and upload to the same place on your website</em>
                             <div class="btn-group btn-group-lg btn-group-block">
-                                <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="generate()">
+                                <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="downloadYaml()">
                                     Download as YAML
                                 </button>
                                 <div class="btn-group btn-group-lg dropup"
@@ -73,9 +73,9 @@
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="#">Download as YAML</a></li>
+                                        <li><a href="" ng-click="downloadYaml()">Download as YAML</a></li>
                                         <li><a href="#">Copy as YAML inline script</a></li>
-                                        <li><a href="#">Download as XML</a></li>
+                                        <li><a href="" ng-click="downloadXml()">Download as XML</a></li>
                                         <li><a href="#">Copy as XML inline script</a></li>
                                     </ul>
                                 </div>
