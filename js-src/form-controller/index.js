@@ -55,9 +55,9 @@ function controllerFn($scope, $filter, appConstants) {
 
     $scope.json = scopeToJSON.call($scope, $filter);
 
-    $scope.copyText = function () {
+    $scope.copyText = function (text) {
         $scope.copyTextModal.isOpen = true;
-        $scope.copyTextModal.text = "hello";
+        $scope.copyTextModal.text = text;
     };
 
     $scope.toggleDropdown = function () {

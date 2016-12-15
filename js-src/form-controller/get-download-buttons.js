@@ -9,10 +9,13 @@ var yaml = require("js-yaml"),
     scopeToJSON = require("./scope-to-json"),
     Blob = require("blob"),
     saveAs = require("browser-filesaver").saveAs,
-    addMessageForSafari = require("./add-message-for-safari");
+    addMessageForSafari = require("./add-message-for-safari"),
+    guid = require("./guid");
 
 var FILE_NAME = "4c",
-    FILE_ENCODING = "text/plain;charset=utf-8"; 
+    // Must be consistent with 4 corners plugin base attribute
+    SCRIPT_DATA_ATTRIBUTE = "data-4c-meta",
+    FILE_ENCODING = "text/plain;charset=utf-8";
 
 module.exports = function () {
     return [
@@ -20,35 +23,51 @@ module.exports = function () {
             id: "downloadYaml",
             text: "Download as YAML",
             fn: function ($scope, $filter) {
-                var j = scopeToJSON.call($scope, $filter),
-                    y = addMessageForSafari(yaml.safeDump(j), "yaml"),
-                    b = new Blob([y], {type: FILE_ENCODING});
-                saveAs(b, FILE_NAME + ".yaml");
+                var j = scopeToJSON.call($scope, $filter);
+                download(yaml.safeDump(j), "yaml");
             }
         },
         {
             id: "copyYaml",
             text: "Copy as YAML inline script",
             fn: function ($scope, $filter) {
-                $scope.copyText();
+                var j = scopeToJSON.call($scope, $filter),
+                    y = yaml.safeDump(j);
+                copyText($scope, y, "yaml");
             }
         },
         {
             id: "downloadXml",
             text: "Download as XML",
             fn: function ($scope, $filter) {
-                var j = scopeToJSON.call($scope, $filter),
-                    y = addMessageForSafari(jsonToXml(j), "xml"),
-                    b = new Blob([y], {type: FILE_ENCODING});
-                saveAs(b, FILE_NAME + ".xml");
+                var j = scopeToJSON.call($scope, $filter);
+                download(jsonToXml(j), "xml");
             }
         },
         {
             id: "copyXml",
             text: "Copy as XML inline script",
             fn: function ($scope, $filter) {
-                $scope.copyText();
+                var j = scopeToJSON.call($scope, $filter),
+                    x = jsonToXml(j);
+                copyText($scope, x, "xml");
             }
         }
     ];
 };
+
+function download(text, format) {
+    var t = addMessageForSafari(text, format),
+        b = new Blob([t], {type: FILE_ENCODING});
+    saveAs(b, FILE_NAME + "." + format);
+}
+
+function copyText($scope, text, format) {
+    var s = document.createElement("script"),
+        d = document.createElement("div");
+    s.type = "text/" + format;
+    s.setAttribute(SCRIPT_DATA_ATTRIBUTE, guid());
+    s.innerHTML = "\n" + text + "\n";
+    d.appendChild(s);
+    $scope.copyText(d.innerHTML);
+}
