@@ -30,7 +30,7 @@ module.exports = function () {
             id: "copyYaml",
             text: "Copy as YAML inline script",
             fn: function ($scope, $filter) {
-
+                $scope.copyText();
             }
         },
         {
@@ -47,7 +47,7 @@ module.exports = function () {
             id: "copyXml",
             text: "Copy as XML inline script",
             fn: function ($scope, $filter) {
-
+                $scope.copyText();
             }
         }
     ];

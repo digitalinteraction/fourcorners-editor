@@ -48,7 +48,17 @@ function controllerFn($scope, $filter, appConstants) {
         description: ''
     };
 
+    $scope.copyTextModal = {
+        isOpen: false,
+        text: ""
+    };
+
     $scope.json = scopeToJSON.call($scope, $filter);
+
+    $scope.copyText = function () {
+        $scope.copyTextModal.isOpen = true;
+        $scope.copyTextModal.text = "hello";
+    };
 
     $scope.toggleDropdown = function () {
         $scope.dropdownIsVisible = !$scope.dropdownIsVisible;

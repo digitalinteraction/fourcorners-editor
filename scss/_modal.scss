@@ -1,0 +1,20 @@
+.modal {
+  display: block;
+  opacity: 1;
+  @include transition(opacity .1s linear, top .15s linear);
+
+  &-backdrop {
+    opacity: .5;
+
+    &.ng-hide {
+      opacity: 0;
+    }
+
+  }
+
+  &.ng-hide {
+    opacity: 0;
+    top: -100%;
+  }
+
+}

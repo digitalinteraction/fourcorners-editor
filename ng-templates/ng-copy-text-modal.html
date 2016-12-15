@@ -1,0 +1,30 @@
+<div class="modal-backdrop fade in" ng-show="isOpen"></div>
+<div class="modal fade in" role="dialog" tabindex="-1" aria-labelledby="modalLabel" ng-show="isOpen">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" ng-click="toggle()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabel">Inline script</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success" ng-show="copyToClipboardIsAvailable">
+                    Script has been copied to clipboard
+                </div>
+                <div class="alert alert-info" ng-hide="copyToClipboardIsAvailable">
+                    To copy the script to clipboard place the cursor into the text box below and press Ctrl(Cmd) + A and then Ctrl(Cmd) + C.
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" ng-model="text"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="toggle()">Close</button>
+                <button type="button" class="btn btn-primary"
+                        ng-show="copyToClipboardIsAvailable"
+                        ng-click="copy()">Copy</button>
+            </div>
+        </div>
+    </div>
+</div>

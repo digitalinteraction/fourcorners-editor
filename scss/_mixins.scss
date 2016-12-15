@@ -6,10 +6,19 @@
   margin-left: -$width/2;
 }
 
+@mixin prefix($property, $value, $prefixes: ()) {
+  @each $prefix in $prefixes {
+    #{'-' + $prefix + '-' + $property}: $value;
+  }
+
+  // Output standard non-prefixed declaration
+  #{$property}: $value;
+}
+
 @mixin transition($args...) {
-  -webkit-transition: $args;
-  -moz-transition: $args;
-  -ms-transition: $args;
-  -o-transition: $args;
-  transition: $args;
+  @include prefix(transition, $args, webkit moz ms o);
+}
+
+@mixin transform($args) {
+  @include prefix(animation-name, $args, webkit moz ms o);
 }
