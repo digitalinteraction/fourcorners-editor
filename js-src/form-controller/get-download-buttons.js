@@ -4,11 +4,13 @@
 
 "use strict";
 
-var yaml = require("js-yaml"),
-    jsonToXml = require("./json-to-xml"),
+// jsonToXml will potentially be used in future to support XMP format
+var jsonToXml = require("./json-to-xml"),
     scopeToJSON = require("./scope-to-json"),
     Blob = require("blob"),
     saveAs = require("browser-filesaver").saveAs,
+    // Json does not support comments, so we don't use for now.
+    // In future we add stripping comments into 4c plugin.
     addMessageForSafari = require("./add-message-for-safari"),
     guid = require("./guid");
 
@@ -20,45 +22,26 @@ var FILE_NAME = "4c",
 module.exports = function () {
     return [
         {
-            id: "downloadYaml",
-            text: "Download as YAML",
+            id: "downloadJson",
+            text: "Download JSON",
             fn: function ($scope, $filter) {
                 var j = scopeToJSON.call($scope, $filter);
-                download(yaml.safeDump(j), "yaml");
+                download(JSON.stringify(j), "json");
             }
         },
         {
-            id: "copyYaml",
-            text: "Copy as YAML inline script",
-            fn: function ($scope, $filter) {
-                var j = scopeToJSON.call($scope, $filter),
-                    y = yaml.safeDump(j);
-                copyText($scope, y, "yaml");
-            }
-        },
-        {
-            id: "downloadXml",
-            text: "Download as XML",
+            id: "copyJson",
+            text: "Copy JSON inline script",
             fn: function ($scope, $filter) {
                 var j = scopeToJSON.call($scope, $filter);
-                download(jsonToXml(j), "xml");
-            }
-        },
-        {
-            id: "copyXml",
-            text: "Copy as XML inline script",
-            fn: function ($scope, $filter) {
-                var j = scopeToJSON.call($scope, $filter),
-                    x = jsonToXml(j);
-                copyText($scope, x, "xml");
+                copyText($scope, JSON.stringify(j), "json");
             }
         }
     ];
 };
 
 function download(text, format) {
-    var t = addMessageForSafari(text, format),
-        b = new Blob([t], {type: FILE_ENCODING});
+    var b = new Blob([text], {type: FILE_ENCODING});
     saveAs(b, FILE_NAME + "." + format);
 }
 

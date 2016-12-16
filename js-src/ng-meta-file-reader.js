@@ -2,31 +2,29 @@
  * Created by Tim Osadchiy on 05/09/2016.
  */
 
-'use strict';
+"use strict";
 
-var yaml = require("js-yaml"),
-    EXIF = require("exif-js"),
-    dataIsValid = require("./image-data-is-valid");
+var dataIsValid = require("./image-data-is-valid");
 
 module.exports = function (app) {
-    app.directive('ngYamlReader', [serviceFun]);
+    app.directive("ngMetaFileReader", [serviceFun]);
 };
 
 function serviceFun() {
 
     function controller(scope, element, attributes) {
 
-        if (!yaml.safeLoad) {
-            throw 'Callback onRead is not defined';
+        if (!scope.onRead) {
+            throw "Callback onRead is not defined";
         }
 
-        var fileInput = element.find('input')[0];
+        var fileInput = element.find("input")[0];
 
         // Display the directive only if the file api is supported
         scope.visible = window.File && window.FileReader && window.FileList && window.Blob;
         scope.errorList = [];
 
-        fileInput.addEventListener('change', handleFileSelect, false);
+        fileInput.addEventListener("change", handleFileSelect, false);
 
         function handleFileSelect(evt) {
             var file = fileInput.files[0];
@@ -36,7 +34,7 @@ function serviceFun() {
             var reader = new FileReader();
             if (!file.type.match(/image.*/)) {
                 reader.onload = function (e) {
-                    readFromYaml(e, reader);
+                    readJson(e, reader);
                     fileInput.value = "";
                 };
                 reader.readAsText(file);
@@ -49,15 +47,15 @@ function serviceFun() {
             }
         }
 
-        function readFromYaml(e, reader) {
+        function readJson(e, reader) {
             var data;
             scope.errorList.length = 0;
             try {
-                data = yaml.safeLoad(reader.result);
+                data = JSON.parse(reader.result);
                 var errors = dataIsValid(data);
                 scope.errorList.push.apply(scope.errorList, errors);
             } catch (e) {
-                scope.errorList.push('File has incorrect structure: ' + e.message);
+                scope.errorList.push("File has incorrect structure: " + e.message);
             }
             if (scope.errorList.length) {
                 scope.$apply();
@@ -67,21 +65,17 @@ function serviceFun() {
         }
 
         function readFromImage(e, file) {
-            EXIF.getData(file, function() {
-                var allMetaData = EXIF.getAllTags(this);
-                // Perform some actions with allMetaData
-                //console.log(allMetaData);
-            })
+            //    Potentially read EXIF data in future
         }
 
     }
 
     return {
-        restrict: 'A',
+        restrict: "A",
         link: controller,
         scope: {
-            onRead: '='
+            onRead: "="
         },
-        templateUrl: 'ng-templates/ng-yaml-reader.html'
+        templateUrl: "ng-templates/ng-meta-file-reader.html"
     };
 }

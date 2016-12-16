@@ -1,7 +1,7 @@
 {
   "name": "fourcorners-editor",
   "version": "0.0.1",
-  "description": "YAML editor for fourcorners http://fourcorners.io",
+  "description": "JSON editor for fourcorners http://fourcorners.io",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -39,7 +39,6 @@
     "bootstrap": "^3.3.7",
     "browser-filesaver": "^1.1.1",
     "exif-js": "^2.1.1",
-    "fourcorners": "0.0.8",
-    "js-yaml": "^3.6.1"
+    "fourcorners": "0.0.8"
   }
 }
