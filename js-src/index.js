@@ -21,3 +21,4 @@ require('./ng-meta-file-reader')(app);
 require('./ng-image-preview')(app);
 require('./ng-affix')(app);
 require('./ng-copy-text-modal')(app);
+require('./iframe-service')(app);

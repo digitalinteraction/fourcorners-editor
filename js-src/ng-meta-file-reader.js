@@ -7,10 +7,10 @@
 var dataIsValid = require("./image-data-is-valid");
 
 module.exports = function (app) {
-    app.directive("ngMetaFileReader", [serviceFun]);
+    app.directive("ngMetaFileReader", ["IframeService", serviceFun]);
 };
 
-function serviceFun() {
+function serviceFun(IframeService) {
 
     function controller(scope, element, attributes) {
 
@@ -26,6 +26,10 @@ function serviceFun() {
 
         fileInput.addEventListener("change", handleFileSelect, false);
 
+        IframeService.onMessage(function (data) {
+            readJson(data);
+        });
+
         function handleFileSelect(evt) {
             var file = fileInput.files[0];
             if (!file) {
@@ -34,7 +38,7 @@ function serviceFun() {
             var reader = new FileReader();
             if (!file.type.match(/image.*/)) {
                 reader.onload = function (e) {
-                    readJson(e, reader);
+                    readJson(reader.result);
                     fileInput.value = "";
                 };
                 reader.readAsText(file);
@@ -47,11 +51,11 @@ function serviceFun() {
             }
         }
 
-        function readJson(e, reader) {
+        function readJson(jsonStr) {
             var data;
             scope.errorList.length = 0;
             try {
-                data = JSON.parse(reader.result);
+                data = JSON.parse(jsonStr);
                 var errors = dataIsValid(data);
                 scope.errorList.push.apply(scope.errorList, errors);
             } catch (e) {

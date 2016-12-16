@@ -2,7 +2,7 @@
  * Created by Tim Osadchiy on 28/08/2016.
  */
 
-'use strict';
+"use strict";
 
 var loadDataToController = require("./load-data-to-controller"),
     scopeToJSON = require("./scope-to-json"),
@@ -13,15 +13,16 @@ var loadDataToController = require("./load-data-to-controller"),
 var DOWNLOAD_BUTTON_STORAGE_ITEM_NAME = "downloadFn";
 
 module.exports = function (app) {
-    app.controller('FormController', ['$scope', '$filter', 'appConstants', controllerFn]);
+    app.controller("FormController", ["$scope", "$filter", "appConstants", "IframeService", controllerFn]);
 };
 
-function controllerFn($scope, $filter, appConstants) {
+function controllerFn($scope, $filter, appConstants, IframeService) {
 
+    $scope.iframeMode = IframeService.getIframeMode();
     $scope.downloadButtons = downloadButtons;
     $scope.selectedDownloadButton = downloadButtons.filter(function (item) {
-        return item.id == localStorage.getItem(DOWNLOAD_BUTTON_STORAGE_ITEM_NAME);
-    })[0] || downloadButtons[0];
+            return item.id == localStorage.getItem(DOWNLOAD_BUTTON_STORAGE_ITEM_NAME);
+        })[0] || downloadButtons[0];
 
     $scope.sourceTypes = appConstants.SOURCE_TYPES;
     $scope.dateFormat = appConstants.DATE_FORMAT;
@@ -35,17 +36,17 @@ function controllerFn($scope, $filter, appConstants) {
     // $scope.contextSources = [new ContextSourceModel(appConstants)];
     // $scope.links = [new LinkModel()];
     $scope.backStory = {
-        text: '',
-        author: '',
-        magazine: '',
-        date: '',
-        url: ''
+        text: "",
+        author: "",
+        magazine: "",
+        date: "",
+        url: ""
     };
     $scope.creativeCommons = {
-        ccOwnerName: '',
-        ccYear: '',
-        codeOfEthics: '',
-        description: ''
+        ccOwnerName: "",
+        ccYear: "",
+        codeOfEthics: "",
+        description: ""
     };
 
     $scope.copyTextModal = {
@@ -91,6 +92,11 @@ function controllerFn($scope, $filter, appConstants) {
 
     $scope.loadDataFromReader = function (data) {
         loadDataToController.call($scope, data, appConstants);
+    };
+
+    $scope.sendToIframe = function () {
+        var j = scopeToJSON.call($scope, $filter);
+        IframeService.post(JSON.stringify(j));
     };
 
     $scope.$watch(function () {
