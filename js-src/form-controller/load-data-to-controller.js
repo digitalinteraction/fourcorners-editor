@@ -4,6 +4,9 @@
 
 "use strict";
 
+var ContextSourceModel = require("./context-source-model"),
+    LinkModel = require("./link-model");
+
 module.exports = function (data, appConstants) {
     this.contextSources = data.context.map(function (c) {
         return new ContextSourceModel(appConstants, {

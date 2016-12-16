@@ -26,7 +26,7 @@ function controllerFn($scope, $filter, appConstants) {
     $scope.sourceTypes = appConstants.SOURCE_TYPES;
     $scope.dateFormat = appConstants.DATE_FORMAT;
 
-    $scope.loadYamlFileView = false;
+    $scope.loadYamlFileView = true;
     $scope.pageIsJustOpened = true;
     $scope.dropdownIsVisible = false;
 
