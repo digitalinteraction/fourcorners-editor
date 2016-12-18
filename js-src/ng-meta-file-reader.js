@@ -4,7 +4,9 @@
 
 "use strict";
 
-var dataIsValid = require("./image-data-is-valid");
+var dataIsValid = require("./image-data-is-valid"),
+    // Yaml is for backwards compatibility to convert yaml files into json
+    yaml = require("js-yaml");
 
 module.exports = function (app) {
     app.directive("ngMetaFileReader", ["IframeService", serviceFun]);
@@ -36,13 +38,20 @@ function serviceFun(IframeService) {
                 return;
             }
             var reader = new FileReader();
-            if (!file.type.match(/image.*/)) {
+            console.log(file);
+            if (file.type == "application/json") {
                 reader.onload = function (e) {
                     readJson(reader.result);
                     fileInput.value = "";
                 };
                 reader.readAsText(file);
-            } else {
+            } else if (file.name.match(/\.yaml$/)) {
+                reader.onload = function (e) {
+                    readFromYaml(reader.result);
+                    fileInput.value = "";
+                };
+                reader.readAsText(file);
+            } else if (file.type.match(/image.*/)) {
                 reader.onload = function (e) {
                     readFromImage(e, file);
                     fileInput.value = "";
@@ -60,6 +69,23 @@ function serviceFun(IframeService) {
                 scope.errorList.push.apply(scope.errorList, errors);
             } catch (e) {
                 scope.errorList.push("File has incorrect structure: " + e.message);
+            }
+            if (scope.errorList.length) {
+                scope.$apply();
+            } else {
+                scope.onRead(data);
+            }
+        }
+
+        function readFromYaml(yamlStr) {
+            var data;
+            scope.errorList.length = 0;
+            try {
+                data = yaml.safeLoad(yamlStr);
+                var errors = dataIsValid(data);
+                scope.errorList.push.apply(scope.errorList, errors);
+            } catch (e) {
+                scope.errorList.push('File has incorrect structure: ' + e.message);
             }
             if (scope.errorList.length) {
                 scope.$apply();
