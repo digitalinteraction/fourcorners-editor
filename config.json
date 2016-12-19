@@ -3,7 +3,7 @@
   "browserifyTo": "temp/index.browserified.js",
   "concatJsTo": "temp/index.js",
   "buildJsTo": "index.min.js",
-  "uglifyJs": true,
+  "uglifyJs": false,
   "watch": true,
   "sassFrom": "scss/main.scss",
   "sassTo": "temp/style.css",
