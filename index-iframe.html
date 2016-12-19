@@ -23,7 +23,7 @@
     iframe.onload = function () {
         var win = iframe.contentWindow || iframe;
         win.postMessage(JSON.stringify({"context": [],"backStory":{"text": "","date": "April 2, 2016"},"creativeCommons" :{ "copyright":"olga stefatou (c)"}}),
-            location.origin);
+            "*");
     };
 
     window.addEventListener("message", function (event) {
