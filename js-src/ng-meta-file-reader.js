@@ -9,10 +9,10 @@ var dataIsValid = require("./image-data-is-valid"),
     yaml = require("js-yaml");
 
 module.exports = function (app) {
-    app.directive("ngMetaFileReader", ["IframeService", serviceFun]);
+    app.directive("ngMetaFileReader", [serviceFun]);
 };
 
-function serviceFun(IframeService) {
+function serviceFun() {
 
     function controller(scope, element, attributes) {
 
@@ -27,10 +27,6 @@ function serviceFun(IframeService) {
         scope.errorList = [];
 
         fileInput.addEventListener("change", handleFileSelect, false);
-
-        IframeService.onMessage(function (data) {
-            readJson(data);
-        });
 
         function handleFileSelect(evt) {
             var file = fileInput.files[0];

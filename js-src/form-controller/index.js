@@ -4,7 +4,8 @@
 
 "use strict";
 
-var loadDataToController = require("./load-data-to-controller"),
+var dataIsValid = require("../image-data-is-valid"),
+    loadDataToController = require("./load-data-to-controller"),
     scopeToJSON = require("./scope-to-json"),
     ContextSourceModel = require("./context-source-model"),
     LinkModel = require("./link-model"),
@@ -19,6 +20,7 @@ module.exports = function (app) {
 function controllerFn($scope, $filter, appConstants, IframeService) {
 
     $scope.iframeMode = IframeService.getIframeMode();
+    $scope.loaded = !$scope.iframeMode;
     $scope.downloadButtons = downloadButtons;
     $scope.selectedDownloadButton = downloadButtons.filter(function (item) {
             return item.id == localStorage.getItem(DOWNLOAD_BUTTON_STORAGE_ITEM_NAME);
@@ -26,8 +28,7 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
 
     $scope.sourceTypes = appConstants.SOURCE_TYPES;
     $scope.dateFormat = appConstants.DATE_FORMAT;
-
-    $scope.loadYamlFileView = true;
+    $scope.loadYamlFileView = !$scope.iframeMode;
     $scope.pageIsJustOpened = true;
     $scope.dropdownIsVisible = false;
 
@@ -92,6 +93,7 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
 
     $scope.loadDataFromReader = function (data) {
         loadDataToController.call($scope, data, appConstants);
+        $scope.toggleView();
     };
 
     $scope.sendToIframe = function () {
@@ -103,5 +105,23 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
         return JSON.stringify(scopeToJSON.call($scope, $filter));
     }, function () {
         $scope.json = scopeToJSON.call($scope, $filter);
+    });
+
+    IframeService.onMessage(function (jsonStr) {
+        try {
+            var data = JSON.parse(jsonStr),
+                errors = dataIsValid(data);
+            if (errors.length) {
+                errors.forEach(function (e) {
+                    console.error(e);
+                });
+                return;
+            } else {
+                loadDataToController.call($scope, data, appConstants);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+        $scope.loaded = true;
     });
 }

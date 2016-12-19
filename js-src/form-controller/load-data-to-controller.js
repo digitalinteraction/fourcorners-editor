@@ -41,7 +41,6 @@ module.exports = function (data, appConstants) {
         codeOfEthics: data.creativeCommons.codeOfEthics,
         description: data.creativeCommons.description
     };
-    this.toggleView();
     this.$apply();
 };
 
