@@ -21,7 +21,7 @@ function serviceFn($window) {
                 listeners.splice(i, 1);
             },
             post: function (data) {
-                targetWindow.postMessage(data, targetWindow.location.origin);
+                targetWindow.postMessage(data, "*");
             },
             getIframeMode: function () {
                 return $window.self !== $window.top;
