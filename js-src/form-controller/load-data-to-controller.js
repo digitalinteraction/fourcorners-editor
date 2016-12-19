@@ -36,8 +36,8 @@ module.exports = function (data, appConstants) {
 
     var copyright = data.creativeCommons.copyright ? data.creativeCommons.copyright.split(/ ©( |)/) : ["", ""];
     this.creativeCommons = {
-        ccOwnerName: copyright[0].replace(/^\s\s*/, "").replace(/\s\s*$/, ""),
-        ccYear: copyright[1].replace(/^\s\s*/, "").replace(/\s\s*$/, ""),
+        ccOwnerName: copyright[0] ? copyright[0].replace(/^\s\s*/, "").replace(/\s\s*$/, "") : "",
+        ccYear: copyright[1] ? copyright[1].replace(/^\s\s*/, "").replace(/\s\s*$/, "") : "",
         codeOfEthics: data.creativeCommons.codeOfEthics,
         description: data.creativeCommons.description
     };
