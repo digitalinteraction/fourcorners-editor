@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Four Corners Editor</title>
+    <title>Authograph Metadata Editor</title>
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body ng-app="FourCornersEditor">
@@ -14,8 +14,8 @@
 
             <h1 class="text-center"><img style="margin-top:-5px;height:50px"
                                          src="https://digitalinteraction.github.io/fourcorners/docs/logo_small.png"/>
-                Four Corners Metadata Editor<br>
-                <small>Generate and edit JSON sidecar files for your images.</small>
+                Authograph Metadata Editor<br>
+                <small>Generate and edit metadata for an image</small>
             </h1>
         </div>
     </div>
@@ -60,8 +60,7 @@
                     <hr>
                     <div class="form-group">
                         <div class="col-sm-9 col-sm-offset-3">
-                            <em>Pressing this button will let you downnload a .yml file. You should name this file to
-                                the same thing as your primary image and upload to the same place on your website</em>
+                            <em>Pressing this button will let you copy your metadata as a script tag.</em>
                             <div class="btn-group btn-group-lg btn-group-block" ng-hide="iframeMode">
                                 <button type="button" class="btn btn-primary btn-block btn-lg"
                                         ng-click="generate(selectedDownloadButton)">
