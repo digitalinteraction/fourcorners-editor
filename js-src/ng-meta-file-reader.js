@@ -4,9 +4,9 @@
 
 "use strict";
 
-var dataIsValid = require("./image-data-is-valid"),
-    // Yaml is for backwards compatibility to convert yaml files into json
-    yaml = require("js-yaml");
+var dataIsValid = require("./image-data-is-valid");
+
+var COULD_NOT_READ_FILE_ERROR = "Please check the file format";
 
 module.exports = function (app) {
     app.directive("ngMetaFileReader", [serviceFun]);
@@ -34,25 +34,15 @@ function serviceFun() {
                 return;
             }
             var reader = new FileReader();
-            console.log(file);
+
             if (file.type == "application/json") {
                 reader.onload = function (e) {
                     readJson(reader.result);
                     fileInput.value = "";
                 };
                 reader.readAsText(file);
-            } else if (file.name.match(/\.yaml$/)) {
-                reader.onload = function (e) {
-                    readFromYaml(reader.result);
-                    fileInput.value = "";
-                };
-                reader.readAsText(file);
-            } else if (file.type.match(/image.*/)) {
-                reader.onload = function (e) {
-                    readFromImage(e, file);
-                    fileInput.value = "";
-                };
-                reader.readAsDataURL(file);
+            } else {
+                scope.errorList.push(COULD_NOT_READ_FILE_ERROR);
             }
         }
 
@@ -64,34 +54,13 @@ function serviceFun() {
                 var errors = dataIsValid(data);
                 scope.errorList.push.apply(scope.errorList, errors);
             } catch (e) {
-                scope.errorList.push("File has incorrect structure: " + e.message);
+                scope.errorList.push(COULD_NOT_READ_FILE_ERROR + ": " + e.message);
             }
             if (scope.errorList.length) {
                 scope.$apply();
             } else {
                 scope.onRead(data);
             }
-        }
-
-        function readFromYaml(yamlStr) {
-            var data;
-            scope.errorList.length = 0;
-            try {
-                data = yaml.safeLoad(yamlStr);
-                var errors = dataIsValid(data);
-                scope.errorList.push.apply(scope.errorList, errors);
-            } catch (e) {
-                scope.errorList.push('File has incorrect structure: ' + e.message);
-            }
-            if (scope.errorList.length) {
-                scope.$apply();
-            } else {
-                scope.onRead(data);
-            }
-        }
-
-        function readFromImage(e, file) {
-            //    Potentially read EXIF data in future
         }
 
     }

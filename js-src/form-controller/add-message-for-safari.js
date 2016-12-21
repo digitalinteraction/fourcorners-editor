@@ -11,21 +11,16 @@ module.exports = function (text, format) {
     var lines = [
             "Download instructions for Safari Users:",
             "1. Press ⌘ + S",
-            "2. Type file name with yaml extension in 'Export As'. Example: YourFileName.yaml",
+            "2. Type file name with XML extension in 'Export As'. Example: YourFileName.xml",
             "3. Select the folder to save in 'Where'. Example: Downloads",
             "4. Select 'Page Source' in 'Format'."
         ],
         formatFnMap = {
-            yaml: formatForYaml,
             xml: formatForXml
         },
         instructions = lines.map(formatFnMap[format]).join("");
     return [instructions, text].join("\n");
 };
-
-function formatForYaml(line, index) {
-    return "# " + line + "\n";
-}
 
 function formatForXml(line, index, array) {
     return index == 0 ? "<!--\n" : "" + line + (index == array.length - 1 ? "\n-->\n" : "\n");

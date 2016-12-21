@@ -28,7 +28,7 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
 
     $scope.sourceTypes = appConstants.SOURCE_TYPES;
     $scope.dateFormat = appConstants.DATE_FORMAT;
-    $scope.loadYamlFileView = !$scope.iframeMode;
+    $scope.loadFileView = !$scope.iframeMode;
     $scope.pageIsJustOpened = true;
     $scope.dropdownIsVisible = false;
 
@@ -67,7 +67,7 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
     };
     $scope.toggleView = function () {
         $scope.pageIsJustOpened = false;
-        $scope.loadYamlFileView = !$scope.loadYamlFileView;
+        $scope.loadFileView = !$scope.loadFileView;
     };
     $scope.addContext = function () {
         $scope.contextSources.push(new ContextSourceModel(appConstants));
