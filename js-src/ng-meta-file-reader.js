@@ -43,6 +43,7 @@ function serviceFun() {
                 reader.readAsText(file);
             } else {
                 scope.errorList.push(COULD_NOT_READ_FILE_ERROR);
+                scope.$apply();
             }
         }
 
