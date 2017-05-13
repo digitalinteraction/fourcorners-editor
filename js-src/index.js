@@ -9,7 +9,6 @@ require('angular-sanitize');
 require('angular-animate');
 require('angular-touch');
 require('angularjs-datepicker');
-require('fourcorners');
 
 var moduleRequirements = ['ngSanitize', 'ngAnimate', 'ngTouch', '720kb.datepicker'],
     app = angular.module('FourCornersEditor', moduleRequirements);

@@ -1,4 +1,4 @@
-<legend><img src="img/tl.png" /> Related Images or Videos for Context</legend>
+<legend><img src="img/tl.png"/> Related Images or Videos for Context</legend>
 <div class="form-subgroup"
      ng-repeat="context in contextSources"
      ng-controller="ContextController"
@@ -13,7 +13,9 @@
         <label class="control-label col-sm-3" for="context-type-{{$index}}">Source type</label>
         <div class="col-sm-9">
             <select id="context-type-{{$index}}"
-                    class="form-control" ng-options="item as item for item in sourceTypes track by item"
+                    class="form-control"
+                    ng-options="item as item for item in sourceTypes track by item"
+                    ng-focus="previewTopLeftFocus()"
                     ng-model="context.sourceType">
                 <option>Image</option>
                 <option>Youtube</option>
@@ -29,7 +31,8 @@
             <input type="text"
                    id="context-source-{{$index}}"
                    class="form-control"
-                   placeholder="{{getPlaceholder()}}"
+                   placeholder="{{ getPlaceholder() }}"
+                   ng-focus="previewTopLeftFocus()"
                    ng-model="context.source">
             <p class="help-block" ng-show="getError()">
                 {{ getError() }}
@@ -42,6 +45,7 @@
             <input type="text"
                    id="context-credit-{{$index}}"
                    class="form-control" placeholder="Name of a photographer or a journal"
+                   ng-focus="previewTopLeftFocus()"
                    ng-model="context.credit">
         </div>
     </div>

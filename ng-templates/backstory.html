@@ -1,10 +1,12 @@
-<legend><img src="img/bl.png" /> Backstory</legend>
+<legend><img src="img/bl.png"/> Backstory</legend>
 <div class="form-group" ng-class="{'has-warning': !backStory.text}">
     <label class="control-label col-sm-3" for="backstory-text">Story</label>
     <div class="col-sm-9">
         <textarea type="text"
                   id="backstory-text"
                   class="form-control" rows="10" placeholder="Text of the story"
+                  ng-blur="resetPreviewVisibility()"
+                  ng-focus="previewBottomLeftFocus()"
                   ng-model="backStory.text"></textarea>
         <p class="help-block" ng-hide="backStory.text">
             Backstory has no text
@@ -17,7 +19,9 @@
         <input type="text"
                id="backstory-author"
                class="form-control" placeholder="Name of the author of the story"
-                ng-model="backStory.author">
+               ng-blur="resetPreviewVisibility()"
+               ng-focus="previewBottomLeftFocus()"
+               ng-model="backStory.author">
     </div>
 </div>
 <div class="form-group">
@@ -26,15 +30,19 @@
         <input type="text"
                id="backstory-magazine"
                class="form-control" placeholder="Name of the magazine"
-                ng-model="backStory.magazine">
+               ng-blur="resetPreviewVisibility()"
+               ng-focus="previewBottomLeftFocus()"
+               ng-model="backStory.magazine">
     </div>
 </div>
 <div class="form-group">
     <label class="control-label col-sm-3" for="backstory-date">Date</label>
     <div class="col-sm-9">
-        <datepicker date-format="{{dateFormat}}">
+        <datepicker date-format="{{ dateFormat }}">
             <input type="text"
                    id="backstory-date"
+                   ng-blur="resetPreviewVisibility()"
+                   ng-focus="previewBottomLeftFocus()"
                    class="form-control" ng-model="backStory.date" placeholder="Date of publication">
         </datepicker>
     </div>
@@ -44,6 +52,8 @@
     <div class="col-sm-9">
         <input type="text"
                id="backstory-url"
+               ng-blur="resetPreviewVisibility()"
+               ng-focus="previewBottomLeftFocus()"
                class="form-control" placeholder="Story's URL" ng-model="backStory.url">
     </div>
 </div>

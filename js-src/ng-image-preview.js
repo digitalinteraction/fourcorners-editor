@@ -4,6 +4,8 @@
 
 'use strict';
 
+var Fc = require('fourcorners');
+
 module.exports = function (app) {
     app.directive('ngImagePreview', ['$timeout', serviceFun]);
 
@@ -13,7 +15,7 @@ module.exports = function (app) {
 
             var fileInput = element.find('input')[0],
                 imgPlaceholder = angular.element(document.querySelectorAll("[img-placeholder]")),
-                timeout;
+                FcObj, timeout;
 
             scope.src = undefined;
             // Display the directive only if the file api is supported
@@ -28,10 +30,10 @@ module.exports = function (app) {
 
             scope.$watch('fcData', function () {
                 $timeout.cancel(timeout);
-                timeout = $timeout(function () {
-                    setImg();
-                }, 1000);
+                timeout = $timeout(setImg, 500);
             });
+
+            scope.$watch('[topLeftVisible, topRightVisible, bottomLeftVisible, bottomRightVisible]', setVisibility);
 
             fileInput.addEventListener('change', handleFileSelect, false);
 
@@ -54,16 +56,32 @@ module.exports = function (app) {
                     img.setAttribute('data-4c', '');
                     imgPlaceholder.append(img);
                     img.src = scope.src;
-                    window.buildFourcorners(img, scope.fcData);
+                    FcObj = Fc.buildFromJson(img, scope.fcData);
+                    setVisibility();
                 }
             }
+
+            function setVisibility() {
+                if (FcObj == null) {
+                    return;
+                }
+                FcObj.topLeft.pin(scope.topLeftVisible);
+                FcObj.topRight.pin(scope.topRightVisible);
+                FcObj.bottomLeft.pin(scope.bottomLeftVisible);
+                FcObj.bottomRight.pin(scope.bottomRightVisible);
+            }
+
         }
 
         return {
             restrict: 'A',
             link: controller,
             scope: {
-                fcData: '='
+                fcData: '=',
+                topLeftVisible: '=',
+                topRightVisible: '=',
+                bottomLeftVisible: '=',
+                bottomRightVisible: '='
             },
             templateUrl: 'ng-templates/ng-image-preview.html'
         };

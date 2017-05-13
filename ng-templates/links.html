@@ -1,4 +1,4 @@
-<legend><img src="img/tr.png" /> Links to Related Content</legend>
+<legend><img src="img/tr.png"/> Links to Related Content</legend>
 <div class="form-subgroup" ng-repeat="link in links">
     <div class="form-group">
         <div class="col-xs-12">
@@ -12,6 +12,8 @@
             <input type="text"
                    id="link-title-{{$index}}"
                    class="form-control" placeholder="Title of a story"
+                   ng-blur="resetPreviewVisibility()"
+                   ng-focus="previewTopRightFocus()"
                    ng-model="link.title">
         </div>
     </div>
@@ -21,6 +23,8 @@
             <input type="text"
                    id="link-url-{{$index}}"
                    class="form-control" placeholder="http://example.com/story.html"
+                   ng-blur="resetPreviewVisibility()"
+                   ng-focus="previewTopRightFocus()"
                    ng-model="link.url">
             <p class="help-block" ng-hide="link.url">
                 Links without a valid URL will be ignored

@@ -46,7 +46,12 @@
                 <div class="col-md-5 sticky-area" ng-affix>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <div ng-image-preview fc-data="json"></div>
+                            <div ng-image-preview
+                                 top-left-visible="preview.topLeftVisible"
+                                 top-right-visible="preview.topRightVisible"
+                                 bottom-left-visible="preview.bottomLeftVisible"
+                                 bottom-right-visible="preview.bottomRightVisible"
+                                 fc-data="preview.json"></div>
                         </div>
                     </div>
                 </div>

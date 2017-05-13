@@ -55,7 +55,13 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
         text: ""
     };
 
-    $scope.json = scopeToJSON.call($scope, $filter);
+    $scope.preview = {
+        json: scopeToJSON.call($scope, $filter),
+        topLeftVisible: false,
+        topRightVisible: false,
+        bottomLeftVisible: false,
+        bottomRightVisible: false
+    };
 
     $scope.copyText = function (text) {
         $scope.copyTextModal.isOpen = true;
@@ -101,10 +107,37 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
         IframeService.post(JSON.stringify(j));
     };
 
+    $scope.resetPreviewVisibility = function () {
+        $scope.preview.topLeftVisible = false;
+        $scope.preview.topRightVisible = false;
+        $scope.preview.bottomLeftVisible = false;
+        $scope.preview.bottomRightVisible = false;
+    };
+
+    $scope.previewTopLeftFocus = function () {
+        $scope.resetPreviewVisibility();
+        $scope.preview.topLeftVisible = true;
+    };
+
+    $scope.previewTopRightFocus = function () {
+        $scope.resetPreviewVisibility();
+        $scope.preview.topRightVisible = true;
+    };
+
+    $scope.previewBottomLeftFocus = function () {
+        $scope.resetPreviewVisibility();
+        $scope.preview.bottomLeftVisible = true;
+    };
+
+    $scope.previewBottomRightFocus = function () {
+        $scope.resetPreviewVisibility();
+        $scope.preview.bottomRightVisible = true;
+    };
+
     $scope.$watch(function () {
         return JSON.stringify(scopeToJSON.call($scope, $filter));
     }, function () {
-        $scope.json = scopeToJSON.call($scope, $filter);
+        $scope.preview.json = scopeToJSON.call($scope, $filter);
     });
 
     IframeService.onMessage(function (jsonStr) {
@@ -124,4 +157,5 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
         }
         $scope.loaded = true;
     });
+
 }
