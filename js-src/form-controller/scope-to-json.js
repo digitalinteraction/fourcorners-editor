@@ -22,10 +22,11 @@ module.exports = function ($filter) {
         date: $filter('date')(this.backStory.date, this.backStory.dateFormat)
     };
     var copyright = this.creativeCommons.ccOwnerName ?
-        [this.creativeCommons.ccOwnerName, this.creativeCommons.ccYear].join(' © ') :
-        '';
+        this.creativeCommons.ccOwnerName + ' ©' +
+        (this.creativeCommons.ccYear ? ' ' + this.creativeCommons.ccYear + '.' : '') +
+        (this.creativeCommons.copyrightType ? ' ' + this.creativeCommons.copyrightType : '')
+        : '';
     obj.creativeCommons = {
-        copyrightType: this.creativeCommons.copyrightType,
         copyright: copyright,
         codeOfEthics: this.creativeCommons.codeOfEthics,
         description: this.creativeCommons.description

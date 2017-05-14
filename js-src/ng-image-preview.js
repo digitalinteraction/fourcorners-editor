@@ -69,6 +69,7 @@ module.exports = function (app) {
                 FcObj.topRight.pin(scope.topRightVisible);
                 FcObj.bottomLeft.pin(scope.bottomLeftVisible);
                 FcObj.bottomRight.pin(scope.bottomRightVisible);
+                FcObj.bottomRight.toggleCodeOfEthics(true);
             }
 
         }
