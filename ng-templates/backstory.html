@@ -2,14 +2,14 @@
 <div class="form-group" ng-class="{'has-warning': !backStory.text}">
     <label class="control-label col-sm-3" for="backstory-text">Story</label>
     <div class="col-sm-9">
-        <textarea type="text"
-                  id="backstory-text"
+        <textarea id="backstory-text"
                   class="form-control" rows="10" placeholder="Text of the story"
                   ng-blur="resetPreviewVisibility()"
                   ng-focus="previewBottomLeftFocus()"
                   ng-model="backStory.text"></textarea>
         <p class="help-block" ng-hide="backStory.text">
-            Backstory has no text
+            Here you can describe in text what was going on behind the scenes that is not obvious
+            in the photograph itself, or include the point of view of the subject or a witness.
         </p>
     </div>
 </div>

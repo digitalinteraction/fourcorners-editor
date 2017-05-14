@@ -1,17 +1,33 @@
 <legend><img src="img/br.png"/> Copyright and Licensing</legend>
+<div class="form-group">
+    <label class="control-label col-sm-3" for="copyright-type">Copyright</label>
+    <div class="col-sm-9">
+        <select id="copyright-type"
+                class="form-control"
+                ng-options="item as item for item in copyrightTypes track by item"
+                ng-blur="resetPreviewVisibility()"
+                ng-focus="previewBottomRightFocus()"
+                ng-model="creativeCommons.copyrightType"></select>
+        <p class="help-block">
+            Here you can specify how you want to protect the copyright of your image, asserting a copyright for
+            yourself or another entity.
+        </p>
+    </div>
+</div>
 <div class="form-group" ng-class="{'has-warning': !creativeCommons.ccOwnerName}">
-    <label class="control-label col-sm-3" for="creative-commons-owner">Copyright</label>
+    <label class="control-label col-sm-3" for="creative-commons-owner">Credit</label>
     <div class="col-sm-9">
         <div class="row">
             <div class="col-xs-8">
                 <input type="text"
                        id="creative-commons-owner"
-                       class="form-control" placeholder="Name of the copyright owner"
+                       class="form-control"
+                       placeholder="Photographer or image creator’s name"
                        ng-blur="resetPreviewVisibility()"
                        ng-focus="previewBottomRightFocus()"
                        ng-model="creativeCommons.ccOwnerName">
                 <p class="help-block" ng-hide="creativeCommons.ccOwnerName">
-                    Copyright owner is not specified
+                    Creator's name is not specified
                 </p>
             </div>
             <div class="col-xs-4">
@@ -26,20 +42,43 @@
 <div class="form-group">
     <label class="control-label col-sm-3" for="creative-commons-ethics">Code of ethics</label>
     <div class="col-sm-9">
-        <textarea id="creative-commons-ethics"
-                  class="form-control" placeholder="" rows="4"
+        <select class="form-control" id="creative-commons-ethics"
+                ng-model="creativeCommons.codesOfEthicsSelect">
+            <option ng-repeat="opt in codesOfEthics" ng-value="opt">{{ opt }}</option>
+            <option value="">Write your own</option>
+        </select>
+        <p class="help-block">
+            Here you can share your own code of ethics that allow viewers to better understand your process as a
+            photographer, specifying to what extent you modify the elements of the photograph in post-production,
+            set up scenes, etc. We recommend this be no more than 2-3 sentences; you can also link this shortened
+            code of ethics to your own website where you may explain your approach in more detail. You can choose
+            one of our suggested codes or write your own code.
+        </p>
+    </div>
+</div>
+<div class="form-group" ng-hide="creativeCommons.codesOfEthicsSelect">
+    <div class="col-sm-9 col-sm-offset-3">
+        <textarea id="creative-commons-ethics-text"
+                  class="form-control" rows="5"
+                  placeholder="Code of ethics text"
                   ng-blur="resetPreviewVisibility()"
                   ng-focus="previewBottomRightFocus()"
                   ng-model="creativeCommons.codeOfEthics"></textarea>
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label col-sm-3" for="creative-commons-description">Description</label>
+    <label class="control-label col-sm-3" for="creative-commons-description">Caption</label>
     <div class="col-sm-9">
         <textarea id="creative-commons-description"
-                  class="form-control" placeholder="Short description of the photo" rows="4"
+                  class="form-control"
+                  placeholder="Caption text"
+                  rows="5"
                   ng-blur="resetPreviewVisibility()"
                   ng-focus="previewBottomRightFocus()"
                   ng-model="creativeCommons.description"></textarea>
+        <p class="help-block">
+            Here you can include a short explanation or description of your image (no more than 2-3 sentences
+            is recommended).
+        </p>
     </div>
 </div>

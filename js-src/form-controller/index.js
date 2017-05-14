@@ -11,8 +11,6 @@ var dataIsValid = require("../image-data-is-valid"),
     LinkModel = require("./link-model"),
     downloadButtons = require("./get-download-buttons")();
 
-var DOWNLOAD_BUTTON_STORAGE_ITEM_NAME = "downloadFn";
-
 module.exports = function (app) {
     app.controller("FormController", ["$scope", "$filter", "appConstants", "IframeService", controllerFn]);
 };
@@ -22,12 +20,12 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
     $scope.iframeMode = IframeService.getIframeMode();
     $scope.loaded = !$scope.iframeMode;
     $scope.downloadButtons = downloadButtons;
-    $scope.selectedDownloadButton = downloadButtons.filter(function (item) {
-            return item.id == localStorage.getItem(DOWNLOAD_BUTTON_STORAGE_ITEM_NAME);
-        })[0] || downloadButtons[0];
 
     $scope.sourceTypes = appConstants.SOURCE_TYPES;
+    $scope.copyrightTypes = appConstants.COPYRIGHT_TYPES;
     $scope.dateFormat = appConstants.DATE_FORMAT;
+    $scope.codesOfEthics = appConstants.CODES_OF_ETHICS;
+
     $scope.loadFileView = !$scope.iframeMode;
     $scope.pageIsJustOpened = true;
     $scope.dropdownIsVisible = false;
@@ -44,10 +42,12 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
         url: ""
     };
     $scope.creativeCommons = {
+        copyrightType: appConstants.COPYRIGHT_TYPES[0],
         ccOwnerName: "",
         ccYear: "",
         codeOfEthics: "",
-        description: ""
+        description: "",
+        codesOfEthicsSelect: appConstants.CODES_OF_ETHICS[0]
     };
 
     $scope.copyTextModal = {
@@ -91,7 +91,6 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
     };
 
     $scope.generate = function (button) {
-        localStorage.setItem(DOWNLOAD_BUTTON_STORAGE_ITEM_NAME, button.id);
         $scope.selectedDownloadButton = button;
         $scope.dropdownIsVisible = false;
         button.fn($scope, $filter);
@@ -133,6 +132,10 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
         $scope.resetPreviewVisibility();
         $scope.preview.bottomRightVisible = true;
     };
+
+    $scope.$watch('creativeCommons.codesOfEthicsSelect', function (newVal) {
+        // $scope.creativeCommons.codeOfEthics = newVal;
+    });
 
     $scope.$watch(function () {
         return JSON.stringify(scopeToJSON.call($scope, $filter));

@@ -23,7 +23,7 @@ module.exports = function () {
     return [
         {
             id: "downloadJson",
-            text: "Download JSON",
+            text: "Download metadata as JSON",
             fn: function ($scope, $filter) {
                 var j = scopeToJSON.call($scope, $filter);
                 download(JSON.stringify(j), "json");
@@ -31,7 +31,7 @@ module.exports = function () {
         },
         {
             id: "copyJson",
-            text: "Copy JSON inline script",
+            text: "Copy metadata as a script tag",
             fn: function ($scope, $filter) {
                 var j = scopeToJSON.call($scope, $filter);
                 copyText($scope, JSON.stringify(j), "json");

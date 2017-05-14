@@ -25,6 +25,7 @@ module.exports = function ($filter) {
         [this.creativeCommons.ccOwnerName, this.creativeCommons.ccYear].join(' © ') :
         '';
     obj.creativeCommons = {
+        copyrightType: this.creativeCommons.copyrightType,
         copyright: copyright,
         codeOfEthics: this.creativeCommons.codeOfEthics,
         description: this.creativeCommons.description
