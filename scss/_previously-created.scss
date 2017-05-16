@@ -1,0 +1,49 @@
+@import "config";
+
+.previously-created {
+  &-item {
+    display: table;
+    $border: 1px solid $border-color;
+
+    @mixin haf() {
+      &:hover,
+      &:active,
+      &:focus {
+        @content;
+      }
+    }
+
+    border-top: $border;
+
+    &:last-child {
+      border-bottom: $border;
+    }
+
+    &-title {
+      padding: 5px 0;
+      width: 100%;
+    }
+    &-tool {
+      padding: 5px 11px;
+      color: $text-grey;
+      @include transition(color $transition, background $transition);
+
+      @include haf {
+        background: #f7f7f7;
+        color: darken($text-grey, $hover-darken);
+      }
+
+    }
+
+    a {
+      display: table-cell;
+      @include transition(color $transition);
+
+      @include haf {
+        text-decoration: none;
+      }
+
+    }
+
+  }
+}

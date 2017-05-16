@@ -12,10 +12,13 @@ var dataIsValid = require("../image-data-is-valid"),
     downloadButtons = require("./get-download-buttons")();
 
 module.exports = function (app) {
-    app.controller("FormController", ["$scope", "$filter", "appConstants", "IframeService", controllerFn]);
+    app.controller("FormController", ["$scope", "$filter", "appConstants", "IframeService", "StorageService",
+        controllerFn]);
 };
 
-function controllerFn($scope, $filter, appConstants, IframeService) {
+function controllerFn($scope, $filter, appConstants, IframeService, StorageService) {
+
+    var metaId = null;
 
     $scope.iframeMode = IframeService.getIframeMode();
     $scope.loaded = !$scope.iframeMode;
@@ -26,14 +29,12 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
     $scope.dateFormat = appConstants.DATE_FORMAT;
     $scope.codesOfEthics = appConstants.CODES_OF_ETHICS;
 
-    $scope.loadFileView = !$scope.iframeMode;
-    $scope.pageIsJustOpened = true;
+    $scope.welcomeView = !$scope.iframeMode;
     $scope.dropdownIsVisible = false;
 
     $scope.contextSources = [];
     $scope.links = [];
-    // $scope.contextSources = [new ContextSourceModel(appConstants)];
-    // $scope.links = [new LinkModel()];
+
     $scope.backStory = {
         text: "",
         author: "",
@@ -56,7 +57,7 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
     };
 
     $scope.preview = {
-        json: scopeToJSON.call($scope, $filter),
+        json: convertToJson(),
         topLeftVisible: false,
         topRightVisible: false,
         bottomLeftVisible: false,
@@ -71,9 +72,10 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
     $scope.toggleDropdown = function () {
         $scope.dropdownIsVisible = !$scope.dropdownIsVisible;
     };
-    $scope.toggleView = function () {
-        $scope.pageIsJustOpened = false;
-        $scope.loadFileView = !$scope.loadFileView;
+    $scope.createNew = function () {
+        var newMeta = StorageService.create(convertToJson());
+        metaId = newMeta.id;
+        $scope.welcomeView = false;
     };
     $scope.addContext = function () {
         $scope.contextSources.push(new ContextSourceModel(appConstants));
@@ -96,13 +98,19 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
         button.fn($scope, $filter);
     };
 
+    $scope.loadDataFromStorage = function (meta) {
+        loadDataToController.call($scope, meta.data, appConstants);
+        metaId = meta.id;
+        $scope.welcomeView = false;
+    };
+
     $scope.loadDataFromReader = function (data) {
         loadDataToController.call($scope, data, appConstants);
-        $scope.toggleView();
+        $scope.createNew();
     };
 
     $scope.sendToIframe = function () {
-        var j = scopeToJSON.call($scope, $filter);
+        var j = convertToJson();
         IframeService.post(JSON.stringify(j));
     };
 
@@ -138,9 +146,12 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
     });
 
     $scope.$watch(function () {
-        return JSON.stringify(scopeToJSON.call($scope, $filter));
+        return JSON.stringify(convertToJson());
     }, function () {
-        $scope.preview.json = scopeToJSON.call($scope, $filter);
+        $scope.preview.json = convertToJson();
+        if (metaId != null) {
+            StorageService.patch(metaId, convertToJson());
+        }
     });
 
     IframeService.onMessage(function (jsonStr) {
@@ -160,5 +171,9 @@ function controllerFn($scope, $filter, appConstants, IframeService) {
         }
         $scope.loaded = true;
     });
+
+    function convertToJson() {
+        return scopeToJSON.call($scope, $filter);
+    }
 
 }

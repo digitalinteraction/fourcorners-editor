@@ -12,7 +12,7 @@ var jsonToXml = require("./json-to-xml"),
     // Json does not support comments, so we don't use for now.
     // In future we add stripping comments into 4c plugin.
     addMessageForSafari = require("./add-message-for-safari"),
-    guid = require("./guid");
+    guid = require("../guid");
 
 var FILE_NAME = "4c",
     // Must be consistent with 4 corners plugin base attribute

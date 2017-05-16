@@ -1,6 +1,9 @@
-$light-grey: #e5e5e5;
+$border-color: #e5e5e5;
+$text-grey: darken($border-color, 40%);
+$hover-darken: 15%;
 $border-radius: 4px;
 $form-subgroup-side-padding: 10px;
 $form-subgroup-background: #fdfdfd;
 $transition-duration: .1s;
 $transition-type: linear;
+$transition: $transition-duration $transition-type;

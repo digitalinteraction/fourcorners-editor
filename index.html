@@ -24,13 +24,14 @@
         Loading...
     </h2>
     <form class="form-horizontal" ng-show="loaded">
-        <div class="row" ng-show="loadFileView">
+
+        <div class="row" ng-show="welcomeView">
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                 <div class="form-group">
                     <div class="col-xs-12">
                         <button type="button" class="btn btn-default btn-default btn-lg btn-block"
-                                ng-click="toggleView()">
-                            {{ pageIsJustOpened ? 'Create new file' : 'Back to form' }}
+                                ng-click="createNew()">
+                            Create new file
                         </button>
                     </div>
                 </div>
@@ -39,9 +40,15 @@
                         <div ng-meta-file-reader on-read="loadDataFromReader"></div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <ng-saved-metas on-selected="loadDataFromStorage"></ng-saved-metas>
+                    </div>
+                </div>
             </div>
         </div>
-        <div ng-hide="loadFileView">
+
+        <div ng-hide="welcomeView">
             <div class="row">
                 <div class="col-md-5 sticky-area" ng-affix>
                     <div class="form-group">

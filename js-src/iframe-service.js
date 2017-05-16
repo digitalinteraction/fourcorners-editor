@@ -5,10 +5,10 @@
 "use strict";
 
 module.exports = function (app) {
-    app.service("IframeService", ["$window", serviceFn]);
+    app.service("IframeService", ["$window", "$rootScope", serviceFn]);
 };
 
-function serviceFn($window) {
+function serviceFn($window, $rootScope) {
     var listeners = [];
 
     var targetWindow,
@@ -37,6 +37,7 @@ function serviceFn($window) {
     $window.addEventListener("message", function (event) {
         targetWindow = event.source;
         execute(event.data);
+        $rootScope.$apply();
     }, false);
 
     return api;
