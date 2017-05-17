@@ -12,10 +12,11 @@ var jsonToXml = require("./json-to-xml"),
     // Json does not support comments, so we don't use for now.
     // In future we add stripping comments into 4c plugin.
     addMessageForSafari = require("./add-message-for-safari"),
-    guid = require("./guid");
+    guid = require("../guid");
 
 var FILE_NAME = "4c",
     // Must be consistent with 4 corners plugin base attribute
+    IMG_LINK_ATTRIBUTE = "data-4c",
     SCRIPT_DATA_ATTRIBUTE = "data-4c-meta",
     FILE_ENCODING = "text/plain;charset=utf-8";
 
@@ -47,10 +48,16 @@ function download(text, format) {
 
 function copyText($scope, text, format) {
     var s = document.createElement("script"),
-        d = document.createElement("div");
+        img = document.createElement("img"),
+        d = document.createElement("div"),
+        id = guid();
+    img.src = "{{replace-with-path-to-your-image}}";
+    img.setAttribute(IMG_LINK_ATTRIBUTE, id);
     s.type = "text/" + format;
-    s.setAttribute(SCRIPT_DATA_ATTRIBUTE, guid());
+    s.setAttribute(SCRIPT_DATA_ATTRIBUTE, id);
     s.innerHTML = "\n" + text + "\n";
+    d.appendChild(img);
+    d.append("\n");
     d.appendChild(s);
     $scope.copyText(d.innerHTML);
 }

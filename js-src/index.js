@@ -20,4 +20,6 @@ require('./ng-meta-file-reader')(app);
 require('./ng-image-preview')(app);
 require('./ng-affix')(app);
 require('./ng-copy-text-modal')(app);
+require('./ng-saved-metas')(app);
 require('./iframe-service')(app);
+require('./storage-service')(app);

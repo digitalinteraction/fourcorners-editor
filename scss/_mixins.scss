@@ -16,9 +16,16 @@
 }
 
 @mixin transition($args...) {
-  @include prefix(transition, $args, webkit moz ms o);
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
 }
 
-@mixin transform($args) {
-  @include prefix(animation-name, $args, webkit moz ms o);
+@mixin transform($transforms) {
+  -webkit-transform: $transforms;
+  -moz-transform: $transforms;
+  -ms-transform: $transforms;
+  transform: $transforms;
 }

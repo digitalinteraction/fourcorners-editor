@@ -44,7 +44,11 @@
     <div class="col-sm-9">
         <select class="form-control" id="creative-commons-ethics"
                 ng-model="creativeCommons.codesOfEthicsSelect">
-            <option ng-repeat="opt in codesOfEthics" ng-value="opt">{{ opt }}</option>
+            <option ng-repeat="opt in codesOfEthics"
+                    ng-attr-value="{{ opt }}"
+                    ng-attr-label="{{ opt }}">
+                {{ opt }}
+            </option>
             <option value="">Write your own</option>
         </select>
         <p class="help-block">

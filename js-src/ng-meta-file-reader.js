@@ -61,6 +61,7 @@ function serviceFun() {
                 scope.$apply();
             } else {
                 scope.onRead(data);
+                scope.$apply();
             }
         }
 
