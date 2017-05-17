@@ -1,0 +1,36 @@
+@import "config";
+@import "mixins";
+
+.ng-animate-enter-leave {
+
+  $offset: -100px;
+
+  @mixin hidden-state() {
+    @include transform(translateX($offset));
+    opacity: 0;
+  }
+
+  @mixin visible-state() {
+    @include transform(translateX(0));
+    opacity: 1;
+  }
+
+  &.ng-enter,
+  &.ng-leave {
+    @include transition(.1s ease-out all);
+  }
+
+  &.ng-enter {
+    @include hidden-state();
+  }
+
+  &.ng-leave,
+  &.ng-enter.ng-enter-active {
+    @include transform(translateX(0));
+    opacity: 1;
+  }
+
+  &.ng-leave.ng-leave-active {
+    @include hidden-state();
+  }
+}

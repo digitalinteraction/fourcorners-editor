@@ -1,5 +1,5 @@
 <h4 ng-show="metas.length">Previously created</h4>
-<div class="previously-created-item" ng-repeat="meta in metas | orderBy: '-lastModified' track by $index">
+<div class="previously-created-item ng-animate-enter-leave" ng-repeat="meta in metas | orderBy: '-lastModified' track by meta.id">
     <a class="previously-created-item-title" href="" title="Select"
        ng-click="select(meta)">
         {{ getMetaTitle(meta) }}
