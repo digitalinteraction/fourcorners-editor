@@ -51,13 +51,10 @@ function copyText($scope, text, format) {
         img = document.createElement("img"),
         d = document.createElement("div"),
         id = guid();
-    img.src = "{{replace-with-path-to-your-image}}";
-    img.setAttribute(IMG_LINK_ATTRIBUTE, id);
+    var sampleImg = '<img src="{{replace-with-path-to-your-image}}" ' + IMG_LINK_ATTRIBUTE + '="' + id + '">\n';
     s.type = "text/" + format;
     s.setAttribute(SCRIPT_DATA_ATTRIBUTE, id);
     s.innerHTML = "\n" + text + "\n";
-    d.appendChild(img);
-    d.append("\n");
     d.appendChild(s);
-    $scope.copyText(d.innerHTML);
+    $scope.copyText(sampleImg + d.innerHTML);
 }
