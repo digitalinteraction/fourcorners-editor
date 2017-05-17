@@ -142,7 +142,9 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
     };
 
     $scope.$watch('creativeCommons.codesOfEthicsSelect', function (newVal) {
-        $scope.creativeCommons.codeOfEthics = newVal;
+        if (newVal) {
+            $scope.creativeCommons.codeOfEthics = newVal;
+        }
     });
 
     $scope.$watch(function () {

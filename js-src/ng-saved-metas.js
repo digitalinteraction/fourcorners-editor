@@ -58,6 +58,6 @@ function getMetaTitle(meta) {
 }
 
 function shortenText(str) {
-    var maxStringLength = 100;
+    var maxStringLength = 30;
     return str.length <= maxStringLength ? str : str.slice(0, maxStringLength - 3) + "...";
 }

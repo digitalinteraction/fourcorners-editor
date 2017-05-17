@@ -48,7 +48,8 @@ module.exports = function (data, appConstants) {
         ccYear: copyright[1] ? copyright[1] : "",
         copyrightType: copyright[2] ? copyright[2] : appConstants.COPYRIGHT_TYPES[0],
         codeOfEthics: data.creativeCommons.codeOfEthics,
-        codesOfEthicsSelect: data.creativeCommons.codeOfEthics,
+        codesOfEthicsSelect: appConstants.CODES_OF_ETHICS.indexOf(data.creativeCommons.codeOfEthics) > -1 ?
+            data.creativeCommons.codeOfEthics : "",
         description: data.creativeCommons.description
     };
 
