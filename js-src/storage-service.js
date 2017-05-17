@@ -17,12 +17,14 @@ function serviceFn($window) {
     var storage;
 
     function initStorage() {
-        storage = JSON.parse($window.localStorage.getItem(STORAGE_KEY)).map(function (item) {
-            item.created = new Date(item.created);
-            item.lastModified = new Date(item.lastModified);
-            return item;
-        });
-        if (storage == null) {
+        var localStorageItem = $window.localStorage.getItem(STORAGE_KEY);
+        if (localStorageItem != null) {
+            storage = JSON.parse(localStorageItem).map(function (item) {
+                item.created = new Date(item.created);
+                item.lastModified = new Date(item.lastModified);
+                return item;
+            });
+        } else {
             storage = [];
             saveStorage();
         }
