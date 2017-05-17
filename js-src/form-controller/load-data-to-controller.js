@@ -34,19 +34,11 @@ module.exports = function (data, appConstants) {
         url: data.backStory.magazineUrl
     };
 
-    var copyright = data.creativeCommons.copyright ?
-        data.creativeCommons.copyright
-            .split(/(©|\.)/)
-            .map(function (s) {
-                return s.trim();
-            })
-            .filter(function (s) {
-                return ["©", "."].indexOf(s) < 0 && s;
-            }) : ["", ""];
     this.creativeCommons = {
-        ccOwnerName: copyright[0] ? copyright[0] : "",
-        ccYear: copyright[1] ? copyright[1] : "",
-        copyrightType: copyright[2] ? copyright[2] : appConstants.COPYRIGHT_TYPES[0],
+        ccOwnerName: data.creativeCommons.credit,
+        ccYear: data.creativeCommons.year,
+        copyrightType: appConstants.COPYRIGHT_TYPES.indexOf(data.creativeCommons.copyright) > -1 ?
+            data.creativeCommons.copyright : appConstants.COPYRIGHT_TYPES[0],
         codeOfEthics: data.creativeCommons.codeOfEthics,
         codesOfEthicsSelect: appConstants.CODES_OF_ETHICS.indexOf(data.creativeCommons.codeOfEthics) > -1 ?
             data.creativeCommons.codeOfEthics : "",

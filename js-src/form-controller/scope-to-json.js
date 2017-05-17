@@ -21,13 +21,10 @@ module.exports = function ($filter) {
         magazineUrl: this.backStory.url,
         date: $filter('date')(this.backStory.date, this.backStory.dateFormat)
     };
-    var copyright = this.creativeCommons.ccOwnerName ?
-        this.creativeCommons.ccOwnerName + ' ©' +
-        (this.creativeCommons.ccYear ? ' ' + this.creativeCommons.ccYear + '.' : '') +
-        (this.creativeCommons.copyrightType ? ' ' + this.creativeCommons.copyrightType : '')
-        : '';
     obj.creativeCommons = {
-        copyright: copyright,
+        credit: this.creativeCommons.ccOwnerName,
+        year: this.creativeCommons.ccYear,
+        copyright: this.creativeCommons.copyrightType,
         codeOfEthics: this.creativeCommons.codeOfEthics,
         description: this.creativeCommons.description
     };
