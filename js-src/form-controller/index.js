@@ -38,7 +38,7 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
     $scope.backStory = {
         text: "",
         author: "",
-        magazine: "",
+        publication: "",
         date: "",
         url: ""
     };

@@ -29,9 +29,9 @@ module.exports = function (data, appConstants) {
     this.backStory = {
         text: data.backStory.text,
         author: data.backStory.author,
-        magazine: data.backStory.magazine,
+        publication: data.backStory.publication,
         date: data.backStory.date,
-        url: data.backStory.magazineUrl
+        url: data.backStory.publicationUrl
     };
 
     this.creativeCommons = {

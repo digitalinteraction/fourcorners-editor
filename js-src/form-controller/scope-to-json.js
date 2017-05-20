@@ -17,8 +17,8 @@ module.exports = function ($filter) {
     obj.backStory = {
         text: this.backStory.text,
         author: this.backStory.author,
-        magazine: this.backStory.magazine,
-        magazineUrl: this.backStory.url,
+        publication: this.backStory.publication,
+        publicationUrl: this.backStory.url,
         date: $filter('date')(this.backStory.date, this.backStory.dateFormat)
     };
     obj.creativeCommons = {
