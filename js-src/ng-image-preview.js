@@ -56,9 +56,19 @@ module.exports = function (app) {
                     img.setAttribute('data-4c', '');
                     imgPlaceholder.append(img);
                     img.src = scope.src;
-                    FcObj = Fc.buildFromJson(img, scope.fcData);
-                    setVisibility();
+                    if (img.complete) {
+                        setFc();
+                    } else {
+                        img.onload = function () {
+                            setFc(img);
+                        };
+                    }
                 }
+            }
+
+            function setFc(img) {
+                FcObj = Fc.wrapImgElementWithJson(img, scope.fcData);
+                setVisibility();
             }
 
             function setVisibility() {
@@ -69,7 +79,6 @@ module.exports = function (app) {
                 FcObj.topRight.pin(scope.topRightVisible);
                 FcObj.bottomLeft.pin(scope.bottomLeftVisible);
                 FcObj.bottomRight.pin(scope.bottomRightVisible);
-                FcObj.bottomRight.toggleCodeOfEthics(true);
             }
 
         }
