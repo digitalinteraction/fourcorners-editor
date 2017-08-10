@@ -70,8 +70,13 @@ module.exports = function (app) {
                 if (FcObj != null) {
                     FcObj.destroy();
                 }
-                FcObj = Fc.wrapImgElementWithJson(img, scope.fcData);
-                setVisibility();
+                /**
+                 * Timeout is to let Internet Explorer to render the image first and calculate its' height
+                 */
+                setTimeout(function () {
+                    FcObj = Fc.wrapImgElementWithJson(img, scope.fcData);
+                    setVisibility();
+                });
             }
 
             function setVisibility() {
