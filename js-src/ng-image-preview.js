@@ -57,7 +57,7 @@ module.exports = function (app) {
                     imgPlaceholder.append(img);
                     img.src = scope.src;
                     if (img.complete) {
-                        setFc();
+                        setFc(img);
                     } else {
                         img.onload = function () {
                             setFc(img);
@@ -67,6 +67,9 @@ module.exports = function (app) {
             }
 
             function setFc(img) {
+                if (FcObj != null) {
+                    FcObj.destroy();
+                }
                 FcObj = Fc.wrapImgElementWithJson(img, scope.fcData);
                 setVisibility();
             }
