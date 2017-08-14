@@ -23,7 +23,7 @@ module.exports = function (app) {
 
             scope.dropSrc = function () {
                 fileInput.value = "";
-                scope.src = undefined;
+                scope.src = null;
             };
 
             scope.$watch('src', setImg);
@@ -49,7 +49,12 @@ module.exports = function (app) {
             }
 
             function setImg() {
+                if (FcObj != null) {
+                    FcObj.destroy();
+                }
+
                 imgPlaceholder.empty();
+
                 if (scope.src) {
                     var img = document.createElement('img');
                     img.className = 'img-responsive';
@@ -67,9 +72,6 @@ module.exports = function (app) {
             }
 
             function setFc(img) {
-                if (FcObj != null) {
-                    FcObj.destroy();
-                }
                 /**
                  * Timeout is to let Internet Explorer to render the image first and calculate its' height
                  */
