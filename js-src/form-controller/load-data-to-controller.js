@@ -7,14 +7,25 @@
 var ContextSourceModel = require("./context-source-model"),
     LinkModel = require("./link-model");
 
+
+    
 module.exports = function (data, appConstants) {
 
     completeData(data);
 
+    this.getSourceType = function(c){
+        if (c.src)
+            return appConstants.SOURCE_TYPES[0];
+        else if (c.youtube_id)
+            return appConstants.SOURCE_TYPES[1];
+        else
+            return appConstants.SOURCE_TYPES[2];
+    };
+    
     this.contextSources = data.context.map(function (c) {
         return new ContextSourceModel(appConstants, {
-            sourceType: c.src ? appConstants.SOURCE_TYPES[0] : appConstants.SOURCE_TYPES[1],
-            source: c.src || c.youtube_id,
+            sourceType: this.getSourceType(c),
+            source: c.src || c.youtube_id || c.vimeo_id,
             credit: c.credit
         });
     });

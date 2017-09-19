@@ -17,6 +17,8 @@ function ContextSourceModel(appConstants, obj) {
             obj.src = this.source;
         } else if (this.sourceType == appConstants.SOURCE_TYPES[1]) {
             obj.youtube_id = this.source;
+        } else if (this.sourceType == appConstants.SOURCE_TYPES[2]) {
+            obj.vimeo_id = this.source;
         }
         return obj;
     };

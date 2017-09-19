@@ -6,7 +6,7 @@
 
 module.exports = function (app) {
     app.constant('appConstants', {
-        SOURCE_TYPES: ['Image', 'YouTube'],
+        SOURCE_TYPES: ['Image', 'YouTube','Vimeo'],
         DATE_FORMAT: 'MMMM d, yyyy',
         COPYRIGHT_TYPES: [
             'All rights reserved',
