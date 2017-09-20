@@ -1,8 +1,8 @@
 <p align="center">
-    <img src="https://digitalinteraction.github.io/fourcorners/docs/logo_small.png" />
+    <img src="https://cdn.fourcorners.io/docs/logo_small.png" />
 </p>
 
-[Authograph Online Editor](https://digitalinteraction.github.io/fourcorners-editor) is a simple web tool that allows content creators to display rich metadata associated with a photographic image.
+[Authograph Online Editor](https://editor.fourcorners.io) is a simple web tool that allows content creators to display rich metadata associated with a photographic image.
 
 > This editor is to be used in conjunction with Authograph enabled content.
 >
@@ -10,7 +10,7 @@
 
 This information is stored in a simple JSON object which the creator places with the image on their website. These objects files can be created manually, but you can also use this online editor to create and edit your metadata.
 
-**Access the online editor at https://digitalinteraction.github.io/fourcorners-editor**
+**Access the online editor at https://editor.fourcorners.io**
 
 ----
 
