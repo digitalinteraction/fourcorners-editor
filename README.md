@@ -6,7 +6,7 @@
 
 > This editor is to be used in conjunction with Authograph enabled content.
 >
-> [Found out how to enable my content](https://github.com/digitalinteraction/fourcorners) 
+> [Found out how to enable my content](https://cdn.fourcorners.io) 
 
 This information is stored in a simple JSON object which the creator places with the image on their website. These objects files can be created manually, but you can also use this online editor to create and edit your metadata.
 
