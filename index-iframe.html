@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<iframe src="http://localhost:63342/fourcorners-editor/index.html?_ijt=gbi5un916u0ibcf59qnsnrp35o"
+<iframe src="http://localhost:5000/index.html?_ijt=gbi5un916u0ibcf59qnsnrp35o"
         width="100%"
         height="100%"
         id="4c-editor"></iframe>
@@ -22,11 +22,10 @@
     var iframe = document.getElementById("4c-editor");
     iframe.onload = function () {
         var win = iframe.contentWindow || iframe;
-        win.postMessage(JSON.stringify({"context": [],"backStory":{"text": "","date": "April 2, 2016"},"creativeCommons" :{ "copyright":"olga stefatou (c)"}}),
-            "*");
+        win.postMessage(JSON.stringify({"url":"http://lorempixel.com/400/200/sports/1/","context": [],"backStory":{"text": "this is a backstory","date": "April 2, 2016"},"creativeCommons" :{ "copyright":"olga stefatou (c)"}}),"*");
     };
 
-    window.addEventListener("message", function (event) {
+    window.addEventListener("message", function (event, dat) {
         var a = JSON.parse(event.data);
         console.log(a);
     }, false);

@@ -166,6 +166,10 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
                 });
                 return;
             } else {
+                if (data.url)
+                    console.info('Loading image from ' + data.url);
+                $scope.src = data.url;
+                console.log($scope);
                 loadDataToController.call($scope, data, appConstants);
             }
         } catch (e) {

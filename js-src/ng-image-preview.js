@@ -17,7 +17,6 @@ module.exports = function (app) {
                 imgPlaceholder = angular.element(document.querySelectorAll("[img-placeholder]")),
                 FcObj, timeout;
 
-            scope.src = undefined;
             // Display the directive only if the file api is supported
             scope.visible = window.File && window.FileReader && window.FileList && window.Blob;
 
@@ -27,6 +26,12 @@ module.exports = function (app) {
             };
 
             scope.$watch('src', setImg);
+
+            scope.$watch('externalSrc', function(){
+                // console.log("external:" + scope.externalSrc);
+                if (scope.externalSrc)
+                    scope.src = scope.externalSrc;
+            });
 
             scope.$watch('fcData', function () {
                 $timeout.cancel(timeout);
@@ -54,6 +59,9 @@ module.exports = function (app) {
                 }
 
                 imgPlaceholder.empty();
+
+                // console.log("setting img");                
+                // console.log(scope);
 
                 if (scope.src) {
                     var img = document.createElement('img');
@@ -97,6 +105,7 @@ module.exports = function (app) {
             restrict: 'A',
             link: controller,
             scope: {
+                externalSrc:'=',
                 fcData: '=',
                 topLeftVisible: '=',
                 topRightVisible: '=',
