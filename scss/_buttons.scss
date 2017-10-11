@@ -21,6 +21,19 @@
   }
 }
 
+.btn-save{
+  background: $primary-color; 
+  border-color: $accent-color;
+  margin-left: -10px;
+  margin-right: -10px;
+
+  &:focus, &:hover{
+    background: $accent-color; 
+    border-color: $accent-color;
+  }
+}
+
 .nav-buttons{
   width: 100px;
 }
+

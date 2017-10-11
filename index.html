@@ -69,7 +69,7 @@
                             <div class="row side-content">
 
                                 <ul class="breadcrumb">
-                                    <li ng-repeat="step in steps" ng-class="{'active': step.step == currentStep}"><a ng-click="stepTo(step.step)" href="">{{step.name}}</a></li>
+                                    <li ng-repeat="step in steps" ng-class="{'active': step.step == currentStep}"><a ng-click="stepTo(step.step)" href="" ng-hide="(step.step == steps.length-1) && !iframeMode">{{step.name}}</a></li>
                                 </ul>
 
                                 <fieldset ng-include="getStepTemplate()">
