@@ -34,16 +34,28 @@ function serviceFun() {
                 return;
             }
             var reader = new FileReader();
-
             if (file.type == "application/json") {
                 reader.onload = function (e) {
                     readJson(reader.result);
                     fileInput.value = "";
                 };
                 reader.readAsText(file);
+            } else if (file.type == ""){ 
+                //Fixing empty file type problem
+                var fileName = file.name.split('.');
+                if (fileName[fileName.length-1] == "json"){
+                    reader.onload = function (e) {
+                        readJson(reader.result);
+                        fileInput.value = "";
+                    };
+                    reader.readAsText(file);
+                } else {
+                    scope.errorList.push(COULD_NOT_READ_FILE_ERROR);
+                    scope.$apply();
+                }
             } else {
-                scope.errorList.push(COULD_NOT_READ_FILE_ERROR);
-                scope.$apply();
+                    scope.errorList.push(COULD_NOT_READ_FILE_ERROR);
+                    scope.$apply();
             }
         }
 

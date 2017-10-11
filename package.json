@@ -38,6 +38,7 @@
     "blob": "0.0.4",
     "bootstrap": "^3.3.7",
     "browser-filesaver": "^1.1.1",
+    "flickr-sdk": "^3.4.0",
     "fourcorners": "^0.0.44"
   }
 }

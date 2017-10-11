@@ -1,110 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Authograph Metadata Editor</title>
+    <title>Four Corners Editor</title>
     <link href="css/style.css" rel="stylesheet">
+
 </head>
+
 <body ng-app="FourCornersEditor">
-<div class="container-fluid" ng-controller="FormController" ng-cloak>
-    <div class="row">
-        <div class="col-xs-12">
+    <div class="container-fluid" ng-controller="FormController" ng-cloak>
+        <div class="row">
+            <div class="col-xs-12">
 
-            <h1 class="text-center"><img style="margin-top:-5px;height:50px"
-                                         src="https://digitalinteraction.github.io/fourcorners/docs/logo_small.png"/>
-                Authograph Metadata Editor<br>
-                <small>Generate and edit metadata for an image</small>
-            </h1>
-        </div>
-    </div>
-    <hr>
-    <h2 class="text-center" ng-hide="loaded">
-        Loading...
-    </h2>
-    <form class="form-horizontal" ng-show="loaded">
-
-        <div class="row" ng-show="welcomeView">
-            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <button type="button" class="btn btn-default btn-default btn-lg btn-block"
-                                ng-click="createNew()">
-                            Create new file
-                        </button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <div ng-meta-file-reader on-read="loadDataFromReader"></div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <ng-saved-metas on-selected="loadDataFromStorage"></ng-saved-metas>
-                    </div>
-                </div>
+                <h1 class="text-center"><img style="margin-top:-5px;height:25px" src="img/logo.png" /> FOURCORNERS EDITOR<br>
+                    <small>Generate and edit metadata for an image</small>
+                </h1>
             </div>
         </div>
+        <br>
+        <h2 class="text-center" ng-hide="loaded">
+            Loading...
+        </h2>
+        <form class="form-horizontal" ng-show="loaded">
 
-        <div ng-hide="welcomeView">
-            <div class="row">
-                <div class="col-md-5 sticky-area" ng-affix>
+            <div class="row" ng-show="welcomeView">
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <div ng-image-preview
-                                 external-src="src"
-                                 top-left-visible="preview.topLeftVisible"
-                                 top-right-visible="preview.topRightVisible"
-                                 bottom-left-visible="preview.bottomLeftVisible"
-                                 bottom-right-visible="preview.bottomRightVisible"
-                                 fc-data="preview.json"></div>
+                            <button type="button" class="btn btn-default btn-default btn-lg btn-block" ng-click="createNew()">
+                            Create new file
+                        </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <div ng-meta-file-reader on-read="loadDataFromReader"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <ng-saved-metas on-selected="loadDataFromStorage"></ng-saved-metas>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-7 col-md-offset-5">
-                    <fieldset ng-include="'ng-templates/backstory.html'"></fieldset>
-                    <fieldset ng-include="'ng-templates/creative-commons.html'"></fieldset>
-                    <fieldset ng-include="'ng-templates/context.html'"></fieldset>
-                    <fieldset ng-include="'ng-templates/links.html'"></fieldset>
-                    <br>
-                    <div ng-hide="iframeMode">
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <button type="button" class="btn btn-primary btn-block btn-lg"
-                                        ng-click="generate(downloadButtons[1])">
-                                    {{ downloadButtons[1].text }}
-                                </button>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <button type="button" class="btn btn-default btn-block btn-lg"
-                                        ng-click="generate(downloadButtons[0])">
-                                    {{ downloadButtons[0].text }}
-                                </button>
+            <div class="editor-content">
+                <div ng-hide="welcomeView">
+
+                    <div class="row">
+                        <div class="col-md-5 sticky-area" ng-affix>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <div ng-image-preview external-src="src" top-left-visible="preview.topLeftVisible" top-right-visible="preview.topRightVisible"
+                                        bottom-left-visible="preview.bottomLeftVisible" bottom-right-visible="preview.bottomRightVisible"
+                                        fc-data="preview.json"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div ng-show="iframeMode">
-                        <div class="form-group">
-                            <button type="button" class="btn btn-primary btn-lg btn-block" ng-show="iframeMode"
-                                    ng-click="sendToIframe()">
-                                Save
-                            </button>
+
+
+
+                    <div class="row">
+                        <div class="col-md-7 col-md-offset-5">
+                            <div class="row side-content">
+
+                                <ul class="breadcrumb">
+                                    <li ng-repeat="step in steps" ng-class="{'active': step.step == currentStep}"><a ng-click="stepTo(step.step)" href="">{{step.name}}</a></li>
+                                </ul>
+
+                                <fieldset ng-include="getStepTemplate()">
+                                </fieldset>
+
+                                <div ng-hide="iframeMode || !(currentStep == steps.length-1)">
+                                    <legend><img src="img/logo.png" style="height: 30px; padding: 5px;" /> Export</legend>
+                                    <p class="help-block">
+                                        Copy or download the generated data and paste it where you want the Four Corners image to show.
+                                    </p>
+                                    <br>
+                                    <div class="form-group">
+                                        <div class="col-xs-12">
+                                            <button type="button" class="btn btn-primary btn-next btn-block btn-lg" ng-click="generate(downloadButtons[1])">
+                                        {{ downloadButtons[1].text }}
+                                    </button>
+                                            <br>
+                                        </div>
+
+                                        <div class="col-xs-12">
+                                            <button type="button" class="btn btn-default btn-block btn-lg" ng-click="generate(downloadButtons[0])">
+                                        {{ downloadButtons[0].text }}
+                                    </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="form-group">
+                                    <div class="col-xs-5 col-sm-5">
+                                        <button type="button" ng-hide="currentStep == 0" class="btn btn-default btn-prev btn-block btn-lg pull-left nav-buttons"
+                                            ng-click="stepTo(currentStep - 1)">
+                                            Previous
+                                        </button>
+                                    </div>
+
+                                    <div class="col-xs-2 col-sm-2">
+                                        <img class="progress-img" ng-src="{{steps[currentStep].image}}" />
+                                    </div>
+
+                                    <div class="col-xs-5 col-sm-5">
+                                        <button ng-hide="currentStep == steps.length-1" type="button" class="btn btn-primary btn-next btn-block btn-lg pull-right nav-buttons"
+                                            ng-click="stepTo(currentStep + 1)">
+                                            Next
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                                <div ng-show="iframeMode">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary btn-lg btn-block" ng-show="iframeMode" ng-click="sendToIframe()">
+                                            Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
 
-    <ng-copy-text-modal is-open="copyTextModal.isOpen" text="copyTextModal.text"></ng-copy-text-modal>
-</div>
+        <ng-copy-text-modal is-open="copyTextModal.isOpen" text="copyTextModal.text"></ng-copy-text-modal>
+    </div>
 
-<script src="index.min.js"></script>
+    <script src="index.min.js"></script>
 </body>
+
 </html>

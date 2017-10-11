@@ -12,7 +12,7 @@ function ContextSourceModel(appConstants, obj) {
     this.source = obj.source ? obj.source : '';
     this.credit = obj.credit ? obj.credit : '';
     this.toJSON = function () {
-        var obj = {credit: this.credit};
+        var obj = { credit: this.credit };
         if (this.sourceType == appConstants.SOURCE_TYPES[0]) {
             obj.src = this.source;
         } else if (this.sourceType == appConstants.SOURCE_TYPES[1]) {
@@ -26,3 +26,4 @@ function ContextSourceModel(appConstants, obj) {
         return this.sourceType + ', ' + this.source + ', ' + this.credit;
     };
 }
+

@@ -56,6 +56,10 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
         text: ""
     };
 
+    $scope.flickrPickr = {
+        isFpOpen: true,
+    };
+
     $scope.preview = {
         json: convertToJson(),
         topLeftVisible: false,
@@ -156,6 +160,58 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
         }
     });
 
+    $scope.steps = [
+       
+        {
+            step: 0,
+            name: "Backstory",
+            template: "ng-templates/backstory.html",
+            corner: $scope.previewBottomLeftFocus,
+            image: 'img/blp.png'
+        },
+        {
+            step: 1,
+            name: "Copyrights",
+            template: "ng-templates/creative-commons.html",
+            corner: $scope.previewBottomRightFocus,
+            image: 'img/brp.png'
+        },   
+        {
+            step: 2,
+            name: "Related Media",
+            template: "ng-templates/context.html",
+            corner: $scope.previewTopLeftFocus,
+            image: 'img/tlp.png'
+        },     
+        {
+            step: 3,
+            name: "Related Links",
+            template: "ng-templates/links.html",
+            corner: $scope.previewTopRightFocus,
+            image: 'img/trp.png'
+        },   
+        {
+            step: 4,
+            name: "Export",
+            template: "",
+            corner: $scope.resetPreviewVisibility  ,
+            image: 'img/allp.png' 
+        }        
+    ];
+    $scope.currentStep = 0;
+
+    $scope.stepTo = function(newStep){
+        if (newStep >= 0 && newStep < $scope.steps.length){
+            $scope.currentStep = newStep;
+            $scope.steps[$scope.currentStep].corner();
+        }
+    };
+
+    $scope.getStepTemplate = function(){
+        if ($scope.currentStep >= 0 && $scope.currentStep < $scope.steps.length)
+            return $scope.steps[$scope.currentStep].template;
+    }; 
+    
     IframeService.onMessage(function (jsonStr) {
         try {
             var data = JSON.parse(jsonStr),

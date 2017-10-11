@@ -10,6 +10,7 @@
   border: 2px dashed $border-color;
   border-radius: $border-radius;
   position: relative;
+  background: $background-color;
   @include transition(border-color $transition-duration $transition-type);
 
   &-caption {

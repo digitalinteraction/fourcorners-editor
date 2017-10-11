@@ -12,7 +12,6 @@ var ContextSourceModel = require("./context-source-model"),
 module.exports = function (data, appConstants) {
 
     completeData(data);
-
     this.getSourceType = function(c){
         if (c.src)
             return appConstants.SOURCE_TYPES[0];
@@ -22,9 +21,12 @@ module.exports = function (data, appConstants) {
             return appConstants.SOURCE_TYPES[2];
     };
     
+    //TODO find a better solution 
+    var self = this;    //a fix to load "this" in contextSources
+
     this.contextSources = data.context.map(function (c) {
         return new ContextSourceModel(appConstants, {
-            sourceType: this.getSourceType(c),
+            sourceType: self.getSourceType(c),
             source: c.src || c.youtube_id || c.vimeo_id,
             credit: c.credit
         });
@@ -55,6 +57,8 @@ module.exports = function (data, appConstants) {
             data.creativeCommons.codeOfEthics : "",
         description: data.creativeCommons.description
     };
+
+
 
 };
 

@@ -9,5 +9,18 @@
     float: none;
     width: 1%;
   }
+}
 
+.btn-next{
+  background: $primary-color; 
+  border-color: $accent-color;
+
+  &:focus, &:hover{
+    background: $accent-color; 
+    border-color: $accent-color;
+  }
+}
+
+.nav-buttons{
+  width: 100px;
 }

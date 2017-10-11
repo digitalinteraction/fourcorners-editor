@@ -1,6 +1,18 @@
 @import "config";
 
 .previously-created {
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    padding: 10px;
+    padding-bottom: 0px;
+    margin-top: 20px;
+    background: $background-color;
+
+  &-inner {
+    max-height: 300px; 
+    overflow-y: auto;
+  }
+
   &-item {
     display: table;
     $border: 1px solid $border-color;

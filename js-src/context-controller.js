@@ -45,6 +45,24 @@ function controllerFn($scope, $timeout, appConstants) {
             $timeout(function() {
                 testImg.src = $scope.context.source;
             }, 500);
+        } else if ($scope.context.source){
+            $scope.context.source = keepId($scope.context.source, $scope.context.sourceType);
         }
     });
+
+    //strip youtube/vimeo urls and only keeps the ID
+    var keepId = function(url, type) {
+        if (type == appConstants.SOURCE_TYPES[1]) {
+            var youtubeReg = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            var match = url.match(youtubeReg);
+            if (match && match[2].length == 11)
+                return match[2];
+        } else {
+            var vimeoReg = /^.*vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?)/;
+            var match = url.match(vimeoReg);
+            if (match && match[3])
+                return match[3];
+        }
+        return url;
+    }
 }

@@ -14,3 +14,11 @@
 textarea {
   max-width: 100%;
 }
+
+.progress-img{
+  height: 50px;
+}
+
+input[type="text"][disabled] {
+    background-color : #e3e3e3; 
+  }
