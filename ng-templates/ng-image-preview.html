@@ -1,7 +1,7 @@
 <div class="image-preview-container" ng-show="src">
     <div class="image-preview-wrap">
         <div class="image-preview-switch" ng-if="!externalSrc || !iframeMode">
-            <a href="" ng-click="dropSrc()">Change main image</a>
+            <a href="" ng-hide="iframeMode" ng-click="dropSrc()">Change main image</a>
         </div>
         <div img-placeholder></div>
 
