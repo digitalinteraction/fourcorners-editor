@@ -21,6 +21,16 @@
   }
 }
 
+.btn-export{
+  background: #33AACE; 
+  border-color: #33AACE;
+
+  &:focus, &:hover{
+    background: #2991AD; 
+    border-color: #2991AD;
+  }
+}
+
 .btn-save{
   background: $primary-color; 
   border-color: $accent-color;

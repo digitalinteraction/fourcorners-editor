@@ -2,6 +2,14 @@
 
 module.exports = function (grunt) {
 
+    grunt.initConfig({
+        serve: {
+            options: {
+                port: 9000
+            }
+        }
+    });
+
     var configPath = grunt.option("config"),
         tskList, config;
 
@@ -33,6 +41,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-angular-templates');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-serve');
 
     tskList = ['clean', 'copy:fonts', 'sass', 'cssmin', 'ngtemplates', 'browserify', 'concat'];
 

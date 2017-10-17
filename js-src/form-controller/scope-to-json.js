@@ -28,5 +28,6 @@ module.exports = function ($filter) {
         codeOfEthics: this.creativeCommons.codeOfEthics,
         description: this.creativeCommons.description
     };
+    obj.url = this.src;
     return obj;
 };

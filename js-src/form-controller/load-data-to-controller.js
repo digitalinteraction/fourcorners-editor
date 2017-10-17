@@ -58,11 +58,11 @@ module.exports = function (data, appConstants) {
         description: data.creativeCommons.description
     };
 
-
-
+    this.src = data.url;
 };
 
 function completeData(data) {
+    console.log(data);
     data.context = data.context || [];
     data.links = data.links || [];
     data.context = data.context || [];
@@ -70,6 +70,7 @@ function completeData(data) {
     data.backStory = data.backStory || {};
     data.backStory = data.backStory || {};
     data.creativeCommons = data.creativeCommons || {};
+    data.url = data.url || "";
     if (data.creativeCommons.copyright) {
         data.creativeCommons.copyright = data.creativeCommons.copyright.replace("(c)", "©")
     }

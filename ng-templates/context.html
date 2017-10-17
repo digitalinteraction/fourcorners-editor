@@ -1,55 +1,56 @@
-<legend><img src="img/tl.png"/> Related Images or Videos for Context</legend>
+<legend><img src="img/tl.png" /> Related Images or Videos for Context</legend>
 <p class="help-block">
-    You can add photographs and video that add more information and context, such as those made before or after the
-    event shown, or from other perspectives, or images that supplement a portrait.
+    You can add photographs and video that add more information and context, such as those made before or after the event shown,
+    or from other perspectives, or images that supplement a portrait.
 </p>
-<div class="form-subgroup ng-animate-enter-leave"
-     ng-repeat="context in contextSources"
-     ng-controller="ContextController"
-     ng-init="context = context">
+<div class="form-subgroup ng-animate-enter-leave" ng-repeat="context in contextSources" ng-controller="ContextController"
+    ng-init="context = context">
     <div class="form-group">
         <div class="col-xs-12">
-            <button type="button" class="close" title="Remove"
-                    ng-click="removeContext(context)">&times;</button>
+            <button type="button" class="close" title="Remove" ng-click="removeContext(context)">&times;</button>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-3" for="context-type-{{$index}}">Source type</label>
         <div class="col-sm-9">
-            <select id="context-type-{{$index}}"
-                    class="form-control"
-                    ng-options="item as item for item in sourceTypes track by item"
-                    ng-focus="previewTopLeftFocus()"
-                    ng-model="context.sourceType"></select>
+            <select id="context-type-{{$index}}" class="form-control" ng-options="item as item for item in sourceTypes track by item"
+                ng-focus="previewTopLeftFocus()" ng-model="context.sourceType"></select>
         </div>
     </div>
     <div class="form-group" ng-class="{'has-warning': getError()}">
-        <label class="control-label col-sm-3" for="context-source-{{$index}}"
-               ng-show="context.sourceType == sourceTypes[0]">Image source</label>
-        <label class="control-label col-sm-3" for="context-source-{{$index}}"
-               ng-show="context.sourceType == sourceTypes[1]">YouTube video Id</label>
-        <label class="control-label col-sm-3" for="context-source-{{$index}}"
-               ng-show="context.sourceType == sourceTypes[2]">Vimeo video Id</label>
-        <div class="col-sm-9">
-            <input type="text"
-                   id="context-source-{{$index}}"
-                   class="form-control"
-                   placeholder="{{ getPlaceholder() }}"
-                   ng-focus="previewTopLeftFocus()"
-                   ng-model="context.source">
+        <label class="control-label col-sm-3" for="context-source-{{$index}}" ng-show="context.sourceType == sourceTypes[0]">Image source</label>
+        <label class="control-label col-sm-3" for="context-source-{{$index}}" ng-show="context.sourceType == sourceTypes[1]">YouTube video Id</label>
+        <label class="control-label col-sm-3" for="context-source-{{$index}}" ng-show="context.sourceType == sourceTypes[2]">Vimeo video Id</label>
+        <div class="col-sm-9" ng-show="context.sourceType != sourceTypes[0]">
+            <input type="text" id="context-source-{{$index}}" class="form-control" placeholder="{{ getPlaceholder() }}" ng-focus="previewTopLeftFocus()"
+                ng-model="context.source">
             <p class="help-block" ng-show="getError()">
                 {{ getError() }}
             </p>
+        </div>
+
+        <div ng-show="context.sourceType == sourceTypes[0]">
+            <div class="col-sm-6">
+                <input type="text" id="context-source-{{$index}}" class="form-control" placeholder="{{ getPlaceholder() }}" ng-focus="previewTopLeftFocus()"
+                    ng-model="context.source">
+            </div>
+            <div class="col-sm-3" style="text-align: right;">
+                <button type="button" class="btn btn-default" ng-click="openPickr('context', $index)">
+                            Pick Image
+                </button>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3">
+                <p class="help-block" ng-show="getError()">
+                    {{ getError() }}
+                </p>
+            </div>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-3" for="context-credit-{{$index}}">Credit</label>
         <div class="col-sm-9">
-            <input type="text"
-                   id="context-credit-{{$index}}"
-                   class="form-control" placeholder="Name of a photographer or a journal"
-                   ng-focus="previewTopLeftFocus()"
-                   ng-model="context.credit">
+            <input type="text" id="context-credit-{{$index}}" class="form-control" placeholder="Name of a photographer or a journal"
+                ng-focus="previewTopLeftFocus()" ng-model="context.credit">
         </div>
     </div>
 </div>

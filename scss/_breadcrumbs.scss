@@ -14,6 +14,13 @@
             border-radius: 5px 0 0 0;
         }
 
+        &:last-child{
+            background: #2eb5de;
+            &.active, &.active a  {
+                color: #2eb5de; 
+            }
+        }
+
         &.active, &.active a  {
             background: $background-color;
             color: $primary-color; 

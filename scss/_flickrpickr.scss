@@ -1,0 +1,99 @@
+.flickrpickr-modal{
+    & .modal
+    {
+        &-body {
+        /* 100% = dialog height, 120px = header + footer */
+        max-height: 550px;
+        
+        }
+
+        
+        &-dialog,
+        &-content {
+            max-height: 650px;
+        }
+
+        &-content {
+            max-width: 622px;
+            margin: auto;
+        }
+
+    }
+
+    .caption {
+        text-align: center;
+        font-size: 18px;
+        color: #7f7f7f;
+        width: 220px;
+        margin: auto;
+    }
+
+    .caption{
+        margin-top: 10px;
+    }
+
+    div::-webkit-scrollbar-track
+    {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+    
+    div::-webkit-scrollbar
+    {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+    
+    div::-webkit-scrollbar-thumb
+    {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.2);
+        background-color: #c7c6c6;
+    }
+
+    hr{
+        border-top: 1px solid #e4dfdf;
+    }
+
+    label{
+        span>img{
+            margin: 0 5PX 0 0;
+            HEIGHT: 18px;
+        }
+    }
+}
+
+.gallery-item {
+    width: 100%;
+    max-width: 160px;
+    min-width: 100px;
+    height: auto;
+    transition: all .35s ease;
+    /* background: url(http://lorempixel.com/170/170/); */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    padding: 5px;
+    background-position: center;
+    cursor: pointer;
+    
+    &.active{
+        background: #4FC3F7;
+    }
+}
+
+.gallery-container{
+    max-height: 220px;
+    overflow-y: scroll;
+    margin-left: -10px;
+}
+
+.gallery-container > [class*='col-']{
+    padding-right: 0;
+    padding-left: 0;
+    overflow: hidden;
+    position: relative;
+    max-width: 150px;
+}

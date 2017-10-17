@@ -42,7 +42,7 @@ module.exports = function () {
 };
 
 function download(text, format) {
-    var b = new Blob([text], {type: FILE_ENCODING});
+    var b = new Blob([text], { type: FILE_ENCODING });
     saveAs(b, FILE_NAME + "." + format);
 }
 
@@ -51,7 +51,9 @@ function copyText($scope, text, format) {
         img = document.createElement("img"),
         d = document.createElement("div"),
         id = guid();
-    var sampleImg = '<img src="{{replace-with-path-to-your-image}}" ' + IMG_LINK_ATTRIBUTE + '="' + id + '">\n';
+    var imageSrc = "{{replace-with-path-to-your-image}}";
+    if ($scope.src && $scope.src != "") imageSrc = $scope.src;
+    var sampleImg = '<img src="' + imageSrc + '" ' + IMG_LINK_ATTRIBUTE + '="' + id + '">\n';
     s.type = "text/" + format;
     s.setAttribute(SCRIPT_DATA_ATTRIBUTE, id);
     s.innerHTML = "\n" + text + "\n";

@@ -16,6 +16,8 @@ module.exports = function (app) {
             var fileInput = element.find('input')[0],
                 imgPlaceholder = angular.element(document.querySelectorAll("[img-placeholder]")),
                 FcObj, timeout;
+            scope.isImgSmall = false;
+
 
             // Display the directive only if the file api is supported
             scope.visible = window.File && window.FileReader && window.FileList && window.Blob;
@@ -23,14 +25,18 @@ module.exports = function (app) {
             scope.dropSrc = function () {
                 fileInput.value = "";
                 scope.src = null;
+                scope.$parent.src = null;
+                scope.$parent.srcFromFile = false;
+                scope.isImgSmall = false;
             };
 
             scope.$watch('src', setImg);
 
-            scope.$watch('externalSrc', function(){
+            scope.$watch('externalSrc', function () {
                 // console.log("external:" + scope.externalSrc);
-                if (scope.externalSrc)
+                if (scope.externalSrc) {
                     scope.src = scope.externalSrc;
+                }
             });
 
             scope.$watch('fcData', function () {
@@ -47,6 +53,8 @@ module.exports = function (app) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
                         scope.src = e.target.result;
+                        scope.$parent.src = null;
+                        scope.$parent.srcFromFile = true;
                         scope.$apply();
                     };
                     reader.readAsDataURL(fileInput.files[0]);
@@ -60,8 +68,6 @@ module.exports = function (app) {
 
                 imgPlaceholder.empty();
 
-                // console.log("setting img");                
-                // console.log(scope);
 
                 if (scope.src) {
                     var img = document.createElement('img');
@@ -71,9 +77,11 @@ module.exports = function (app) {
                     img.src = scope.src;
                     if (img.complete) {
                         setFc(img);
+                        scope.isImgSmall = isImageSmall(img.naturalWidth, img.naturalHeight);
                     } else {
                         img.onload = function () {
                             setFc(img);
+                            scope.isImgSmall = isImageSmall(img.naturalWidth, img.naturalHeight);
                         };
                     }
                 }
@@ -99,13 +107,18 @@ module.exports = function (app) {
                 FcObj.bottomRight.pin(scope.bottomRightVisible);
             }
 
+            function isImageSmall(width, height){
+                //var largestDim = width > height ?  width : height;
+                return ((width < 800) || (height < 400));
+            }
+
         }
 
         return {
             restrict: 'A',
             link: controller,
             scope: {
-                externalSrc:'=',
+                externalSrc: '=',
                 fcData: '=',
                 topLeftVisible: '=',
                 topRightVisible: '=',

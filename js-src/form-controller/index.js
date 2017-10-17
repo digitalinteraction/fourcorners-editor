@@ -57,7 +57,7 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
     };
 
     $scope.flickrPickr = {
-        isFpOpen: true,
+        isFpOpen: false
     };
 
     $scope.preview = {
@@ -161,7 +161,7 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
     });
 
     $scope.steps = [
-       
+
         {
             step: 0,
             name: "Backstory",
@@ -175,43 +175,54 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
             template: "ng-templates/creative-commons.html",
             corner: $scope.previewBottomRightFocus,
             image: 'img/brp.png'
-        },   
+        },
         {
             step: 2,
             name: "Related Media",
             template: "ng-templates/context.html",
             corner: $scope.previewTopLeftFocus,
             image: 'img/tlp.png'
-        },     
+        },
         {
             step: 3,
             name: "Related Links",
             template: "ng-templates/links.html",
             corner: $scope.previewTopRightFocus,
             image: 'img/trp.png'
-        },   
+        },
         {
             step: 4,
             name: "Export",
             template: "",
-            corner: $scope.resetPreviewVisibility  ,
-            image: 'img/allp.png' 
-        }        
+            corner: $scope.resetPreviewVisibility,
+            image: 'img/allp.png'
+        }
     ];
     $scope.currentStep = 0;
+    $scope.srcFromFile = false;
 
-    $scope.stepTo = function(newStep){
-        if (newStep >= 0 && newStep < $scope.steps.length){
+    $scope.stepTo = function (newStep) {
+        if (newStep >= 0 && newStep < $scope.steps.length) {
             $scope.currentStep = newStep;
             $scope.steps[$scope.currentStep].corner();
         }
     };
 
-    $scope.getStepTemplate = function(){
+    $scope.getStepTemplate = function () {
         if ($scope.currentStep >= 0 && $scope.currentStep < $scope.steps.length)
             return $scope.steps[$scope.currentStep].template;
-    }; 
-    
+    };
+
+    $scope.openPickr = function (type, index) {
+        console.log("open");
+        $scope.flickrPickr.isFpOpen = true;
+        $scope.flickrPickr.type = type;
+        if (type == 'context')
+            $scope.flickrPickr.model = $scope.contextSources[index];
+        else
+            $scope.flickrPickr.model = {};
+    };
+
     IframeService.onMessage(function (jsonStr) {
         try {
             var data = JSON.parse(jsonStr),
