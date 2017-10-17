@@ -1,7 +1,7 @@
 <div class="image-preview-container" ng-show="src">
     <div class="image-preview-wrap">
-        <div class="image-preview-switch" ng-if="!externalSrc || !iframeMode">
-            <a href="" ng-hide="iframeMode" ng-click="dropSrc()">Change main image</a>
+        <div class="image-preview-switch" ng-if="!externalSrc || !$parent.iframeMode">
+            <a href="" ng-hide="$parent.iframeMode" ng-click="dropSrc()">Change main image</a>
         </div>
         <div img-placeholder></div>
 
@@ -24,7 +24,7 @@
         </div>
         <input type="file">
     </div>
-    <div class="image-url" ng-show="!iframeMode" ng-click="$parent.openPickr('mainImage', 0)">
+    <div class="image-url" ng-show="!$parent.iframeMode" ng-click="$parent.openPickr('mainImage', 0)">
         <div class="image-preview-caption">
             Click here to add image URL or pick one from your Flickr account
         </div>
