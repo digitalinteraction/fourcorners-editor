@@ -9,22 +9,23 @@ module.exports = function (app) {
 };
 
 function serviceFn($window, $rootScope) {
-    //var listeners = [];
+    var listeners = [];
     var listener;
     var dataPosted = false;
 
     var targetWindow,
         api = {
             onMessage: function (fn) {
-                //listeners.push(fn);
-                listener = fn;
+                listeners.push(fn);
+                //listener = fn;
             },
             offMessage: function (fn) {
                 var i = list.indexOf(fn);
                 listeners.splice(i, 1);
             },
-            post: function (data) {
-                targetWindow.postMessage(data, "*");
+            post: function (data, messageType) {
+                data.type = messageType;
+                targetWindow.postMessage(JSON.stringify(data), "*");
                 dataPosted = true;
             },
             getIframeMode: function () {
@@ -34,10 +35,10 @@ function serviceFn($window, $rootScope) {
         };
 
     var execute = function (data) {
-        /* listeners.forEach(function (l) {
+        listeners.forEach(function (l) {
             l(data);
-        }); */
-        listener(data);
+        });
+        //listener(data);
     };
 
     $window.addEventListener("message", function (event) {

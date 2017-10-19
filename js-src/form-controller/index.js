@@ -35,6 +35,8 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
     $scope.contextSources = [];
     $scope.links = [];
 
+    $scope.WordpressPluginVersion = 0;
+
     $scope.backStory = {
         text: "",
         author: "",
@@ -115,8 +117,13 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
 
     $scope.sendToIframe = function () {
         var j = convertToJson();
-        IframeService.post(JSON.stringify(j));
+        IframeService.post(j, "data");
     };
+
+    $scope.requestWordpressImage = function(index){
+        var j = {index: index};
+        IframeService.post(j, "imageRequest");
+    }
 
     $scope.resetPreviewVisibility = function () {
         $scope.preview.topLeftVisible = false;
@@ -225,19 +232,24 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
     IframeService.onMessage(function (jsonStr) {
         console.log('messageReceived');
         try {
-            var data = JSON.parse(jsonStr),
-                errors = dataIsValid(data);
-                console.log(data);
-            if (errors.length) {
-                errors.forEach(function (e) {
-                    console.error(e);
-                });
-                return;
+            var data = JSON.parse(jsonStr);
+            if (data.type == "imageResponse") {
+                $scope.contextSources[data.index].source = data.url;
             } else {
-                if (data.url)
-                    console.info('Loading image from ' + data.url);
-                $scope.src = data.url;
-                loadDataToController.call($scope, data, appConstants);
+                $scope.WordpressPluginVersion = data.version || 0;                
+                var errors = dataIsValid(data);
+                console.log(data);
+                if (errors.length) {
+                    errors.forEach(function (e) {
+                        console.error(e);
+                    });
+                    return;
+                } else {
+                    if (data.url)
+                        console.info('Loading image from ' + data.url);
+                    $scope.src = data.url;
+                    loadDataToController.call($scope, data, appConstants);
+                }
             }
         } catch (e) {
             console.error(e);
