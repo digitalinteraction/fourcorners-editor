@@ -24,13 +24,11 @@ function serviceFun() {
 
         scope.loadPastedData = function() {
             var data;
-            console.log(scope.$parent.pastedData);   
             var pastedData = scope.pastedData;         
             scope.errorList = [];
             scope.errorList.length = 0;
             try {
                 var errors;
-                console.log(pastedData);
                 data = JSON.parse(pastedData);
                 errors = dataIsValid(data);
                 scope.errorList.push.apply(scope.errorList, errors);

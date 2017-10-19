@@ -30,11 +30,11 @@
         </div>
 
         <div ng-show="context.sourceType == sourceTypes[0]">
-            <div class="col-sm-6">
+            <div ng-class="iframeMode ? 'col-sm-9' : 'col-sm-6'">
                 <input type="text" id="context-source-{{$index}}" class="form-control" placeholder="{{ getPlaceholder() }}" ng-focus="previewTopLeftFocus()"
                     ng-model="context.source">
             </div>
-            <div class="col-sm-3" style="text-align: right;">
+            <div class="col-sm-3" style="text-align: right;" ng-if="!iframeMode">
                 <button type="button" class="btn btn-default" ng-click="openPickr('context', $index)">
                             Pick Image
                 </button>

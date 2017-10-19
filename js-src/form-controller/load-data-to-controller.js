@@ -62,7 +62,6 @@ module.exports = function (data, appConstants) {
 };
 
 function completeData(data) {
-    console.log(data);
     data.context = data.context || [];
     data.links = data.links || [];
     data.context = data.context || [];

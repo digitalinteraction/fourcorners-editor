@@ -214,7 +214,6 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
     };
 
     $scope.openPickr = function (type, index) {
-        console.log("open");
         $scope.flickrPickr.isFpOpen = true;
         $scope.flickrPickr.type = type;
         if (type == 'context')
@@ -224,9 +223,11 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
     };
 
     IframeService.onMessage(function (jsonStr) {
+        console.log('messageReceived');
         try {
             var data = JSON.parse(jsonStr),
                 errors = dataIsValid(data);
+                console.log(data);
             if (errors.length) {
                 errors.forEach(function (e) {
                     console.error(e);
@@ -236,7 +237,6 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
                 if (data.url)
                     console.info('Loading image from ' + data.url);
                 $scope.src = data.url;
-                console.log($scope);
                 loadDataToController.call($scope, data, appConstants);
             }
         } catch (e) {

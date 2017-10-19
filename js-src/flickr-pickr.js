@@ -42,8 +42,7 @@ function flickrPickrService($http, $window, $interval, $cookies) {
             
             if (!scope.loadedAll) {
                 $http({ method: 'GET', url: 'https://flickr.fourcorners.io/images', params: { page: fbPage }, withCredentials: true }).then(function (result) {
-                    console.log(scope.page);
-                    console.log(result);
+
                     if (result.data.photos.pages < fbPage) {
                         scope.loadedAll = true;
                     } else {
@@ -104,9 +103,8 @@ function flickrPickrService($http, $window, $interval, $cookies) {
 }
 
 function authenticateWindow(scope, window, interval, http) {
-    console.log('auth');
     var child = window.open('https://flickr.fourcorners.io/login', { replace: true });
-    console.log('auth2');
+
     
     var promise = interval(function () {
         try {
