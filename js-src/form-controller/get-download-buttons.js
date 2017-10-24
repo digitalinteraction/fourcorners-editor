@@ -18,6 +18,7 @@ var FILE_NAME = "4c",
     // Must be consistent with 4 corners plugin base attribute
     IMG_LINK_ATTRIBUTE = "data-4c",
     SCRIPT_DATA_ATTRIBUTE = "data-4c-meta",
+    IMG_DATA_ATTRIBUTE = "data-4c-metadata",
     FILE_ENCODING = "text/plain;charset=utf-8";
 
 module.exports = function () {
@@ -53,10 +54,11 @@ function copyText($scope, text, format) {
         id = guid();
     var imageSrc = "{{replace-with-path-to-your-image}}";
     if ($scope.src && $scope.src != "") imageSrc = $scope.src;
-    var sampleImg = '<img src="' + imageSrc + '" ' + IMG_LINK_ATTRIBUTE + '="' + id + '">\n';
-    s.type = "text/" + format;
-    s.setAttribute(SCRIPT_DATA_ATTRIBUTE, id);
-    s.innerHTML = "\n" + text + "\n";
-    d.appendChild(s);
+    var sampleImg = '<img src="' + imageSrc + '" ' + IMG_LINK_ATTRIBUTE + '="' + id + '" ';
+    sampleImg += IMG_DATA_ATTRIBUTE + '="' + encodeURI(text) + '">\n';
+    //s.type = "text/" + format;
+    //s.setAttribute(SCRIPT_DATA_ATTRIBUTE, id);
+    //s.innerHTML = "\n" + text + "\n";
+    //d.appendChild(s);
     $scope.copyText(sampleImg + d.innerHTML);
 }
