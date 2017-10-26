@@ -5,37 +5,109 @@
     padding: 0px;
     color: $background-color;
     border-radius: 5px 5px 0 0;
+    text-transform: uppercase;
+    text-align: center;
+    height: 95px;
 
-    &>li{
-        color: $background-color;
-        padding: 15px 15px;
+    .col-20p, .col-25p{
+        height: 100%;
+        cursor: pointer;
 
         &:first-child{
             border-radius: 5px 0 0 0;
         }
-
+        
         &:last-child{
             background: #2eb5de;
-            &.active, &.active a  {
-                color: #2eb5de; 
+            border-radius: 0 5px 0 0;
+            &:hover{
+                background: #1ec1f3;
+            }
+
+            &.active{
+                background: #1ec1f3;
+            }
+        }
+        
+        &:hover{
+            background:  $accent-color;
+        }
+
+        &.active{
+            background:  $accent-color;
+            
+            
+        }
+
+        
+    }
+
+    .col-25p{
+        &:nth-child(4){
+            border-radius: 0 5px 0 0;
+
+        }
+    }
+
+    .active::after{
+        display: block;
+        position: absolute;
+        bottom: 0; 
+        left: 50%;
+        width: 0; 
+        height: 0; 
+        content: "";
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 10px solid #ffffff;
+        @include transform(translate(-50%,0%)); 
+    }
+
+    .bc-item{
+        color: #fff;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 100%;
+        width: 100%;
+        @include transform(translate(-50%,-50%));
+
+        img{
+            max-height: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            max-width: 70%;
+            @include transform(translate(-50%,-50%));    
+            @include editor-lg{
+                bottom: 0;
+                left: 50%;
+                @include transform(translate(-50%,0%));      
+            }        
+        }
+        .bc-icon{
+            height: 100%;
+            position: relative;
+            @include editor-lg{
+                height: 50%; 
+                width: 100%;
             }
         }
 
-        &.active, &.active a  {
-            background: $background-color;
-            color: $primary-color; 
+        .bc-name{
+            display: none;
+            height: 0;
+            font-size: 12px;
             font-weight: bold;
-            text-decoration: underline;
+            @include editor-lg{
+                display: block;
+                height: 50%; 
+                width: 100%;
+                padding: 5px;
+                padding-top: 5px;
+            }
         }
-    }
-    
-    & a{
-        color: $background-color;
-    }
-
-    &>li+li:before {
-        padding: 0;
-        content: "";
     }
     
 }

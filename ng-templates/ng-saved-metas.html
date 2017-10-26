@@ -1,16 +1,20 @@
 <div class="previously-created">
     <h4 ng-show="metas.length">Previously created</h4>
+    
+        <div class="caption" ng-hide="metas.length">
+            NOTHING TO EDIT
+        </div>
     <div class='previously-created-inner'>
         <div class="previously-created-item ng-animate-enter-leave" ng-repeat="meta in metas | orderBy: '-lastModified' track by meta.id">
             <a class="previously-created-item-title" href="" title="Select" ng-click="select(meta)">
-        {{ getMetaTitle(meta) }}
-    </a>
+                {{ getMetaTitle(meta) }}
+            </a>
             <a class="previously-created-item-tool" href="" title="Copy" ng-click="duplicate(meta)">
-        <i class="glyphicon glyphicon-copy"></i>
-    </a>
+                <i class="glyphicon glyphicon-copy"></i>
+            </a>
             <a class="previously-created-item-tool" href="" title="Remove" ng-click="remove(meta)">
-        &times;
-    </a>
+                &times;
+            </a>
         </div>
     </div>
 </div>

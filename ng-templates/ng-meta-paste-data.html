@@ -1,12 +1,13 @@
-<div class="file-reader-errors" ng-show="errorList.length">
-    <div class="alert alert-danger">
-        <ul>
-            <li ng-repeat="error in errorList">{{ error }}</li>
-        </ul>
+
+<!-- <div class="file-reader-errors" ng-show="errorList.length">
+    <div class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close" ng-click="errorList=[]">&times;</a>
+        <div ng-repeat="error in errorList"> {{ error }}</div>
     </div>
+</div> -->
+
+<div class="caption" ng-show="pastedData == '' || pastedData == null">
+    Paste metadata from clipboard
 </div>
-<div class="input-group">
-    <textarea placeholder="Paste existing metadata here to edit previously created FourCorner images." class="form-control custom-control"
-        rows="4" ng-model="pastedData"></textarea>
-    <span class="input-group-addon btn btn-primary" ng-disabled="pastedData == '' || pastedData == null" ng-click="pastedData == '' || pastedData == null || loadPastedData()">Load Data</span>
-</div>
+<textarea class="form-control custom-control" rows="4" ng-model="pastedData"></textarea>
+<span class="btn btn-default pasted" ng-hide="pastedData == '' || pastedData == null" ng-click="pastedData == '' || pastedData == null || loadPastedData()">LOAD DATA</span>

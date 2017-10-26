@@ -31,7 +31,6 @@
 }
 
 body{
-  padding-top: 20px;
   background: $body-background-color;
 }
 
@@ -40,15 +39,55 @@ body{
 }
 
 .side-content{
-  background: $background-color;
+  background: #fff;
   border: 1px solid $border-color;
-  margin: 0px 10px; 
-  padding: 0px 10px;
+  margin: 0px; 
+  padding: 0 10px;
   border-radius: 5px;
   padding-bottom: 0;
+
 }
 
 h1 {
   color: #000;
   font-size: 20pt;
 }
+
+.fce-header {
+  background: #fff;
+  height: 130px;
+  padding-top: 25px;
+
+  &-container {
+    display: table;
+    height: 100%;
+
+    &>div{
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .logo{
+      margin-bottom: 10px;
+      max-height: 50px;
+      max-width: 100%;
+    }
+
+    small{
+      color: #888;
+      font-variant: small-caps;
+      font-size: 100%;
+    }
+  }
+}
+
+.col-20p{
+  width: 20% !important;
+}
+
+.col-25p{
+  width: 25% !important;
+}
+
+
+
