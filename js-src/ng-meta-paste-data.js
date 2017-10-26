@@ -22,50 +22,36 @@ function serviceFun() {
 
         scope.errorList = [];
 
-        scope.loadPastedData = function () {
+        scope.loadPastedData = function() {
             var data;
-            var pastedData = scope.pastedData;
+            var pastedData = scope.pastedData;         
             scope.errorList = [];
             scope.errorList.length = 0;
-
             try {
                 var errors;
                 data = JSON.parse(pastedData);
                 errors = dataIsValid(data);
                 scope.errorList.push.apply(scope.errorList, errors);
             } catch (err) {
-                try {
-                    var els = angular.element(pastedData);
-                    for (var i = 0, len = els.length; i < len; i++) {
-                        var el = els[i];
-                        if (el.tagName && el.tagName.toLowerCase() == 'img') {
-                            if (el.attributes["data-4c-metadata"]) {
-                                data = JSON.parse(decodeURI(el.attributes['data-4c-metadata'].value));
-                                break;
-                            }
-                        } else if (el.tagName && el.tagName.toLowerCase() == 'script') {
-                            if (el.attributes['data-4c-meta']) {
-                                data = JSON.parse(el.innerHTML);
-                                break;
-                            }
-                        }
-                    }
-
-                    if (!data) {
-                        scope.errorList.push(COULD_NOT_PARSE_DATA_ERROR);
-                    } else {
+                var scriptRegexp = /<script.*>\s?(.*)\s?<\/script>/;
+                var match = scriptRegexp.exec(pastedData);
+                if (match == null) {
+                    scope.errorList.push(COULD_NOT_PARSE_DATA_ERROR);
+                } else {
+                    try {
+                        data = JSON.parse(match[1]);
                         errors = dataIsValid(data);
                         scope.errorList.push.apply(scope.errorList, errors);
+                    } catch (e) {
+                        scope.errorList.push(COULD_NOT_PARSE_DATA_ERROR + ": " + e.message);
                     }
-                } catch (e) {
-                    scope.errorList.push(COULD_NOT_PARSE_DATA_ERROR);
                 }
             }
             if (scope.errorList.length) {
-                scope.$parent.errorList = scope.errorList[scope.errorList.length-1];
-                scope.errorList=[];
+                //scope.$apply();
             } else {
                 scope.onDataLoad(data);
+                //scope.$apply();
             }
         }
     }

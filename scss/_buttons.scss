@@ -22,34 +22,28 @@
 }
 
 .btn-export{
-  background: $accent-color;; 
-  border-color: $primary-color;
+  background: #33AACE; 
+  border-color: #33AACE;
 
   &:focus, &:hover{
-    background: $primary-color; 
-    border-color: $primary-color;
+    background: #2991AD; 
+    border-color: #2991AD;
   }
 }
 
 .btn-save{
-  background: #2eb5de; 
-  border-color: #1ec1f3;
+  background: $primary-color; 
+  border-color: $accent-color;
+  margin-left: -10px;
+  margin-right: -10px;
 
-  &:focus,  &:hover{
-    background: #1ec1f3; 
-    border-color: #1ec1f3;
-  }
-
-  &:active, &:active:hover, &:active:focus{
-    background: #189dc5; 
+  &:focus, &:hover{
+    background: $accent-color; 
+    border-color: $accent-color;
   }
 }
 
 .nav-buttons{
   width: 100px;
-}
-
-.btn-lg{
-  white-space: normal;
 }
 

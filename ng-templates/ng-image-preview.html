@@ -1,32 +1,19 @@
 <div class="image-preview-container" ng-show="src">
     <div class="image-preview-wrap">
-        <div class="image-preview-switch" style="margin-bottom: 8px; margin-top: 0px; text-transform: uppercase;" ng-if="!externalSrc || !$parent.iframeMode">
+        <div class="image-preview-switch" ng-if="!externalSrc || !$parent.iframeMode">
             <a href="" ng-hide="$parent.iframeMode" ng-click="dropSrc()">Change main image</a>
         </div>
-        <div img-placeholder class="step-{{$parent.currentStep}}"></div>
-        <div class="help-block text-left">
-            This is a preview of how your metadata will be displayed. Some content may not appear if links are not full URLs.
-        </div>
+        <div img-placeholder></div>
 
-
-        <div class="text-left alert alert-warning" ng-show="$parent.srcFromFile">
-            <div> This is a preview only. Images selected from your local drive will not be uploaded.
-            </div>
-        </div>
-
-        <div class="text-left alert alert-warning" ng-show="isImgSmall">
-            <div> This image is too small. The recommended minimum size is 800x400px.
-
-            </div>
-        </div>
-
-        <!-- <div class="help-block text-left warning" ng-show="$parent.srcFromFile">
+        <div class="help-block text-left warning" ng-show="$parent.srcFromFile">
             This is a preview only. Images selected from your local drive will not be uploaded.
         </div>
         <div class="help-block text-left warning" ng-show="isImgSmall">
             This image is too small. The recommended minimum size is 800x400px.
-        </div> -->
-
+        </div>
+        <div class="help-block text-left">
+            This is a preview of how your metadata will be displayed. Some content may not appear if links are not full URLs.
+        </div>
 
     </div>
 </div>

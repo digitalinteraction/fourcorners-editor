@@ -33,7 +33,7 @@ module.exports = function () {
         },
         {
             id: "copyJson",
-            text: "Copy metadata as an image tag",
+            text: "Copy metadata as a script tag",
             fn: function ($scope, $filter) {
                 var j = scopeToJSON.call($scope, $filter);
                 copyText($scope, JSON.stringify(j), "json");
@@ -55,7 +55,7 @@ function copyText($scope, text, format) {
     var imageSrc = "{{replace-with-path-to-your-image}}";
     if ($scope.src && $scope.src != "") imageSrc = $scope.src;
     var sampleImg = '<img src="' + imageSrc + '" ' + IMG_LINK_ATTRIBUTE + '="' + id + '" ';
-    sampleImg += IMG_DATA_ATTRIBUTE + '="' + encodeURI(text) + '" />\n';
+    sampleImg += IMG_DATA_ATTRIBUTE + '="' + encodeURI(text) + '">\n';
     //s.type = "text/" + format;
     //s.setAttribute(SCRIPT_DATA_ATTRIBUTE, id);
     //s.innerHTML = "\n" + text + "\n";

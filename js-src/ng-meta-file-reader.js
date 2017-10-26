@@ -40,10 +40,10 @@ function serviceFun() {
                     fileInput.value = "";
                 };
                 reader.readAsText(file);
-            } else if (file.type == "") {
+            } else if (file.type == ""){ 
                 //Fixing empty file type problem
                 var fileName = file.name.split('.');
-                if (fileName[fileName.length - 1] == "json") {
+                if (fileName[fileName.length-1] == "json"){
                     reader.onload = function (e) {
                         readJson(reader.result);
                         fileInput.value = "";
@@ -51,16 +51,11 @@ function serviceFun() {
                     reader.readAsText(file);
                 } else {
                     scope.errorList.push(COULD_NOT_READ_FILE_ERROR);
+                    scope.$apply();
                 }
             } else {
-                scope.errorList.push(COULD_NOT_READ_FILE_ERROR);
-            }
-
-            if (scope.errorList.length > 0) {
-                fileInput.value="";                
-                scope.$parent.errorList = scope.errorList[scope.errorList.length-1];
-                scope.errorList=[];
-                scope.$apply();
+                    scope.errorList.push(COULD_NOT_READ_FILE_ERROR);
+                    scope.$apply();
             }
         }
 
@@ -72,7 +67,7 @@ function serviceFun() {
                 var errors = dataIsValid(data);
                 scope.errorList.push.apply(scope.errorList, errors);
             } catch (e) {
-                scope.errorList.push(COULD_NOT_READ_FILE_ERROR);
+                scope.errorList.push(COULD_NOT_READ_FILE_ERROR + ": " + e.message);
             }
             if (scope.errorList.length) {
                 scope.$apply();

@@ -29,23 +29,3 @@
   -ms-transform: $transforms;
   transform: $transforms;
 }
-
-@mixin sm {
-  @media (max-width: 578px) {
-      @content;
-  }
-}
-
-@mixin editor-lg {
-  @media (min-width: 540px){
-    @content;    
-  }
-}
-
-@mixin placeholder {
-  &.placeholder { @content; }
-  &:-moz-placeholder { @content; }
-  &::-moz-placeholder { @content; }
-  &:-ms-input-placeholder { @content; }
-  &::-webkit-input-placeholder { @content; }
-}

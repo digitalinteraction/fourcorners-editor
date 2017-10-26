@@ -30,13 +30,10 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
     $scope.codesOfEthics = appConstants.CODES_OF_ETHICS;
 
     $scope.welcomeView = !$scope.iframeMode;
-    $scope.welcomeStep = 0;
     $scope.dropdownIsVisible = false;
 
     $scope.contextSources = [];
     $scope.links = [];
-
-    $scope.errorList = '';
 
     $scope.WordpressPluginVersion = 0;
 
@@ -177,40 +174,35 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
             name: "Backstory",
             template: "ng-templates/backstory.html",
             corner: $scope.previewBottomLeftFocus,
-            image: 'img/blp.png',
-            icon: 'img/backstory.png'
+            image: 'img/blp.png'
         },
         {
             step: 1,
             name: "Copyrights",
             template: "ng-templates/creative-commons.html",
             corner: $scope.previewBottomRightFocus,
-            image: 'img/brp.png',
-            icon: 'img/copyright.png'
+            image: 'img/brp.png'
         },
         {
             step: 2,
             name: "Related Media",
             template: "ng-templates/context.html",
             corner: $scope.previewTopLeftFocus,
-            image: 'img/tlp.png',
-            icon: 'img/media.png'
+            image: 'img/tlp.png'
         },
         {
             step: 3,
             name: "Related Links",
             template: "ng-templates/links.html",
             corner: $scope.previewTopRightFocus,
-            image: 'img/trp.png',
-            icon: 'img/links.png'
+            image: 'img/trp.png'
         },
         {
             step: 4,
             name: "Export",
             template: "",
             corner: $scope.resetPreviewVisibility,
-            image: 'img/allp.png',
-            icon: 'img/export.png'
+            image: 'img/allp.png'
         }
     ];
     $scope.currentStep = 0;
@@ -237,8 +229,8 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
             $scope.flickrPickr.model = {};
     };
 
-
     IframeService.onMessage(function (jsonStr) {
+        console.log('messageReceived');
         try {
             var data = JSON.parse(jsonStr);
             if (data.type == "imageResponse") {
@@ -246,6 +238,7 @@ function controllerFn($scope, $filter, appConstants, IframeService, StorageServi
             } else {
                 $scope.WordpressPluginVersion = data.version || 0;                
                 var errors = dataIsValid(data);
+                console.log(data);
                 if (errors.length) {
                     errors.forEach(function (e) {
                         console.error(e);
