@@ -3,14 +3,21 @@
 .previously-created {
     border: 1px solid $border-color;
     border-radius: 5px;
-    padding: 10px;
     padding-bottom: 0px;
-    margin-top: 20px;
+    padding: 0 10px;
     background: $background-color;
+    height: 300px;
+
+    @include sm{
+      height: 450px;
+    }
 
   &-inner {
-    max-height: 300px; 
     overflow-y: auto;
+    height: 250px;
+    @include sm{
+      height: 400px;
+    }
   }
 
   &-item {

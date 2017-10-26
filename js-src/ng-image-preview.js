@@ -7,9 +7,9 @@
 var Fc = require('fourcorners');
 
 module.exports = function (app) {
-    app.directive('ngImagePreview', ['$timeout', serviceFun]);
+    app.directive('ngImagePreview', ['$timeout', '$window', serviceFun]);
 
-    function serviceFun($timeout) {
+    function serviceFun($timeout, $window) {
 
         function controller(scope, element, attributes) {
 
@@ -42,6 +42,10 @@ module.exports = function (app) {
             scope.$watch('fcData', function () {
                 $timeout.cancel(timeout);
                 timeout = $timeout(setImg, 500);
+            });
+
+            angular.element($window).bind('resize', function(){
+                selectCorner(600, false);
             });
 
             scope.$watch('[topLeftVisible, topRightVisible, bottomLeftVisible, bottomRightVisible]', setVisibility);
@@ -105,9 +109,40 @@ module.exports = function (app) {
                 FcObj.topRight.pin(scope.topRightVisible);
                 FcObj.bottomLeft.pin(scope.bottomLeftVisible);
                 FcObj.bottomRight.pin(scope.bottomRightVisible);
+                selectCorner(0, true);
             }
 
-            function isImageSmall(width, height){
+            function selectCorner(delay, hide){
+                if (document.querySelector("div[img-placeholder]").children && document.querySelector("div[img-placeholder]").children.length > 0) {
+                    var cornerSelector = document.getElementById('corner-selector') || document.createElement('div');
+                    if (hide) cornerSelector.className = 'ng-hide';
+                    setTimeout(function () {
+                        cornerSelector.id = 'corner-selector';
+                        cornerSelector.style.position = 'absolute';
+                        cornerSelector.style.right = 'auto';
+                        cornerSelector.style.bottom = 'auto';
+
+
+                        if (scope.$parent.currentStep == 1 || scope.$parent.currentStep == 3) {
+                            cornerSelector.style.left = (document.querySelector("div[img-placeholder]").children[0].offsetLeft + document.querySelector("div[img-placeholder]").children[0].offsetWidth + 5 - 60) + 'px';
+                        } else {
+                            cornerSelector.style.left = (document.querySelector("div[img-placeholder]").children[0].offsetLeft - 5) + 'px';
+                            ;
+                        }
+
+                        if (scope.$parent.currentStep == 0 || scope.$parent.currentStep == 1) {
+                            cornerSelector.style.top = (document.querySelector("div[img-placeholder]").children[0].offsetTop + document.querySelector("div[img-placeholder]").children[0].offsetHeight - 24 - 60) + 'px';
+                        } else {
+                            cornerSelector.style.top = (document.querySelector("div[img-placeholder]").children[0].offsetTop - 5) + 'px';
+                            ;
+                        }
+                        cornerSelector.className = 'ng-show';
+                        imgPlaceholder.append(cornerSelector);
+                    }, delay);
+                }
+            }
+
+            function isImageSmall(width, height) {
                 //var largestDim = width > height ?  width : height;
                 return ((width < 800) || (height < 400));
             }

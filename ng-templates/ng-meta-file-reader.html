@@ -1,13 +1,15 @@
-<div class="file-reader-errors" ng-show="visible && errorList.length">
-    <div class="alert alert-danger">
-        <ul>
-            <li ng-repeat="error in errorList">{{ error }}</li>
-        </ul>
+<!-- <div class="file-reader-errors" ng-show="visible && errorList.length">
+    <div class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close" ng-click="errorList=[]">&times;</a>
+        <div ng-repeat="error in errorList"> {{ error }}</div>
     </div>
 </div>
-<div class="file-reader" ng-show="visible">
-    <div class="file-reader-caption">
-        Click here or drop a JSON file to edit existing metadata
+ -->
+<div ng-show="visible" style="height: 100%; width: 100%; min-height: 150px;">
+    <div class="caption">
+        Upload a JSON file
+        <br>
+        <small>(or drop it here)</small>
     </div>
     <input type="file">
 </div>
