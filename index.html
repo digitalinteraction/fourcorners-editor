@@ -53,7 +53,7 @@
                         <div class="col-md-7 col-md-offset-5">
                             <div class="row side-content">
                                 <div class="row breadcrumb">
-                                    <div ng-repeat="step in steps" ng-class="{'active': step.step == currentStep, 'col-20p': !iframeMode, 'col-25p': iframeMode}" ng-hide="(step.step == steps.length-1) && iframeMode" ng-hide="(step.step == steps.length-1) && iframeMode"
+                                    <div ng-repeat="step in steps" ng-class="{'active': step.step == currentStep, 'col-20p': !iframeMode || isChromeExtension, 'col-25p': iframeMode && !isChromeExtension}" ng-hide="(step.step == steps.length-1) && iframeMode && !isChromeExtension"
                                         class="col-xs-12">
                                         <div class="bc-item" ng-click="stepTo(step.step)" href="" >
                                             <div class="bc-icon">
@@ -69,11 +69,11 @@
                                 <fieldset ng-include="getStepTemplate()">
                                 </fieldset>
 
-                                <div ng-hide="iframeMode || !(currentStep == steps.length-1)">
+                                <div ng-hide="(iframeMode && !isChromeExtension) || !(currentStep == steps.length-1)">
                                     <legend>
                                         <img src="img/logo.png" style="height: 30px; padding: 5px;" /> Export</legend>
                                     <p class="help-block">
-                                        Copy or download the generated data and paste it where you want the Four Corners image to show.
+                                        Copy or download the generated data and paste it into the website where you want the Four Corners image to show.
                                     </p>
                                     <br>
                                     <div class="form-group">
@@ -116,7 +116,7 @@
 
                                 <div ng-show="iframeMode">
                                     <div class="form-group" style="margin: -10px">
-                                        <button type="button" class="btn btn-primary btn-next btn-lg btn-block btn-save" ng-show="iframeMode" ng-click="sendToIframe()">
+                                        <button type="button" class="btn btn-primary btn-next btn-lg btn-block btn-save" ng-show="iframeMode && !isChromeExtension" ng-click="sendToIframe()">
                                             Save
                                         </button>
                                     </div>
